@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!65 &486990290453229924
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853998165431968654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.259739, y: 12.8179, z: 18.216883}
+  m_Center: {x: -1.1464853, y: 2.004507, z: 0.65043646}
+--- !u!1001 &4853998165432067374
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_Name
+      value: barrel_clean_Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 438.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 68.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -64.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.043750253
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.005519991
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.06899409
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.996642
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 93a0a44b41ec7584ab191a86565bbf01, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7, type: 3}
+--- !u!1 &4853998165431968654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: d0abd1fcbb5b6f14b8418e26e8deebb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4853998165432067374}
+  m_PrefabAsset: {fileID: 0}

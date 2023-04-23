@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2657614474770936788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2657614474770936791}
+  - component: {fileID: 2657614474770936790}
+  m_Layer: 0
+  m_Name: LionFishSchoolController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2657614474770936791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657614474770936788}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -30, y: -30, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2657614474770936790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657614474770936788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5df205397402704fbe6834c617e69f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameManager: {fileID: 0}
+  fishPrefab: {fileID: 311940997995656126, guid: 445ab0c68bc14104b8ea547e70e7d561,
+    type: 3}
+  maxPopulation: 10
+  initialPopulation: 6
+  currentPopulation: 0
+  spawnRange: 20
+  p: 0.6
+  alpha: 6
+  rho: 10
+  delta_t: 0.01
+  maxOmega: 2
+  initialOmega: 0.5
+  omegaIncrement: 0.012
+  omegaDecrement: 0.0008
+  omegaFeedbackTime: 10
+  allowOmegaFeedback: 0
+  nRoutes: 10
+  knownRoutes: []
+  minRouteUpdateTime: 5
+  maxRouteUpdateTime: 20
+  knownRouteChangeRate: 0.5
+  updateKnownRoutes: 1
+  enableRouteConsensus: 0
+  maxHunger: 1
+  initialHunger: 0.6
+  hungerThreshold: 0.4
+  hungerIncrement: 0.005
+  hungerRecoveryNoise: 0.2
+  randomInitialHunger: 0
+  maxEnergy: 1
+  initialEnergy: 0.5
+  energyThreshold: 0.2
+  energyIncrement: 0.01
+  energyDecrement: 0.005
+  randomInitialEnergy: 0
+  lifeExpectation: 1200
+  deathFunctionCallTime: 30
+  enableDeathByAge: 0
+  bodySize: 4
+  minSizeScale: 0.4
+  maxSizeScale: 1
+  ageToReachMaxSize: 600
+  originalSizeScale: {x: 0, y: 0, z: 0}
+  regenerationTime: 50
+  regenerationCoef: 0.25
+  enableRegeneration: 0
+  maxCentroidDistance: 100
+  minCentroidDistance: 30
+  centroid: {x: 0, y: 0, z: 0}
+  othersTag: []
+  autoIncludeOwnTag: 1
+  othersRelevantDistance: 15
+  otherFishSearchingRange: 10
+  fishLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  enableAvoidanceWithOthers: 1
+  enableAlignmentWithOthers: 0
+  othersList: []
+  predatorsTag: []
+  predatorRelevantDistance: 15
+  predatorRelevantDistanceToSchool: 30
+  newPredatorLearningRate: 0.05
+  escapeRouteNoiseWeight: 0.5
+  preysTag:
+  - reefFish8
+  - blueTang
+  - reefFish4
+  - tinyYellowFish
+  - seaHorse
+  preferedHuntingRange: 5
+  maxHuntingRange: 20
+  followingPreyMaxTime: 15
+  huntingSuccessRate: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleSearchingRange: 8
+  obstacleRelevantDistance: 15
+  preferedSwimmingDepth: -30
+  preferedSwimmingDepthRange: 5
+  couzinDirectionWeight: 0.5
+  centroidFollowingDirectionWeight: 0
+  obstacleAvoidanceDirectionWeight: 4
+  predatorAvoidanceDirectionWeight: 1
+  preyFollowingDirectionWeight: 4
+  swimmingDepthDirectionWeight: 2
+  normalSpeed: 2
+  escapeSpeed: 2
+  huntingSpeed: 2
+  acceleration: 2
+  animationSpeed: 2
+  rotationSpeed: 2
+  minSpeed: 0.5
+  maxSpeed: 5

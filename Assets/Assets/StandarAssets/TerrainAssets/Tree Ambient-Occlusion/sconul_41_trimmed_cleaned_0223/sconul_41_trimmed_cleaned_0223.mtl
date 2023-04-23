@@ -1,0 +1,54 @@
+newmtl Sconul_41_trimmed
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_Sconul_41_trimmed.jpg
+
+newmtl GeneratedMat2
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_GeneratedMat2.png
+
+newmtl GeneratedMat3
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_GeneratedMat3.png
+
+newmtl GeneratedMat4
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_GeneratedMat4.png
+
+newmtl GeneratedMat5
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_GeneratedMat5.png
+
+newmtl GeneratedMat6
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1
+map_Kd sconul_41_trimmed_cleaned_0223_GeneratedMat6.png
+
+newmtl NO_MATERIAL
+Ka 1.000000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+d 1
+Ns 0.00000
+illum 1

@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!65 &5195503832166599631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987926600262890521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 18.525116, y: 14.217829, z: 21.098097}
+  m_Center: {x: 1.9752805, y: 5.9745364, z: 0.078198455}
+--- !u!1001 &7987926600262988473
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_Name
+      value: Poritas Poritas_Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 341.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 66.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -59.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.23237956
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.027188163
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.11298098
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.96565825
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f24f94339b8c447439db72176646067c, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d7d9e3b845418d4a9a337c8769675d5, type: 3}
+--- !u!1 &7987926600262890521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 7d7d9e3b845418d4a9a337c8769675d5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7987926600262988473}
+  m_PrefabAsset: {fileID: 0}

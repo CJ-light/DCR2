@@ -1,0 +1,329 @@
+fileFormatVersion: 2
+guid: 49e72f1e030316647adb67a1019a75ea
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Diver
+    100004: //RootNode
+    100006: Head
+    100008: LAnkle
+    100010: LArm01
+    100012: LArm02
+    100014: Lball
+    100016: LClavicle
+    100018: Leye
+    100020: LfigerA01
+    100022: LfigerA02
+    100024: LfigerA03
+    100026: LfigerB01
+    100028: LfigerB02
+    100030: LfigerB03
+    100032: LfigerC01
+    100034: LfigerC02
+    100036: LfigerC03
+    100038: LfigerD01
+    100040: LfigerD02
+    100042: LfigerD03
+    100044: LfigerE01
+    100046: LfigerE02
+    100048: LfigerE03
+    100050: LFlipper01
+    100052: LFlipper02
+    100054: LFlipper03
+    100056: LForearm01
+    100058: LForearm02
+    100060: LHand
+    100062: LLeg01
+    100064: LLeg02
+    100066: Lloweyelid
+    100068: LMaskHoseBone
+    100070: LProp
+    100072: LShoulder
+    100074: LTankHoseBone01
+    100076: LTankHoseBone02
+    100078: LTankHoseBone03
+    100080: LTankHoseBone04
+    100082: Luppereyelid
+    100084: MaskBone
+    100086: Neck
+    100088: Pelvis
+    100090: RAnkle
+    100092: RArm01
+    100094: RArm02
+    100096: Rball
+    100098: RClavicle
+    100100: Reye
+    100102: RfigerA01
+    100104: RfigerA02
+    100106: RfigerA03
+    100108: RfigerB01
+    100110: RfigerB02
+    100112: RfigerB03
+    100114: RfigerC01
+    100116: RfigerC02
+    100118: RfigerC03
+    100120: RfigerD01
+    100122: RfigerD02
+    100124: RfigerD03
+    100126: RfigerE01
+    100128: RfigerE02
+    100130: RfigerE03
+    100132: RFlipper01
+    100134: RFlipper02
+    100136: RFlipper03
+    100138: RForearm01
+    100140: RForearm02
+    100142: RHand
+    100144: RLeg01
+    100146: RLeg02
+    100148: Rloweyelid
+    100150: RMaskHoseBone
+    100152: Root
+    100154: RProp
+    100156: RShoulder
+    100158: RTankHoseBone01
+    100160: RTankHoseBone02
+    100162: RTankHoseBone03
+    100164: RTankHoseBone04
+    100166: Ruppereyelid
+    100168: Spine01
+    100170: Spine02
+    100172: Spine03
+    100174: Tank
+    400000: Camera
+    400002: Diver
+    400004: //RootNode
+    400006: Head
+    400008: LAnkle
+    400010: LArm01
+    400012: LArm02
+    400014: Lball
+    400016: LClavicle
+    400018: Leye
+    400020: LfigerA01
+    400022: LfigerA02
+    400024: LfigerA03
+    400026: LfigerB01
+    400028: LfigerB02
+    400030: LfigerB03
+    400032: LfigerC01
+    400034: LfigerC02
+    400036: LfigerC03
+    400038: LfigerD01
+    400040: LfigerD02
+    400042: LfigerD03
+    400044: LfigerE01
+    400046: LfigerE02
+    400048: LfigerE03
+    400050: LFlipper01
+    400052: LFlipper02
+    400054: LFlipper03
+    400056: LForearm01
+    400058: LForearm02
+    400060: LHand
+    400062: LLeg01
+    400064: LLeg02
+    400066: Lloweyelid
+    400068: LMaskHoseBone
+    400070: LProp
+    400072: LShoulder
+    400074: LTankHoseBone01
+    400076: LTankHoseBone02
+    400078: LTankHoseBone03
+    400080: LTankHoseBone04
+    400082: Luppereyelid
+    400084: MaskBone
+    400086: Neck
+    400088: Pelvis
+    400090: RAnkle
+    400092: RArm01
+    400094: RArm02
+    400096: Rball
+    400098: RClavicle
+    400100: Reye
+    400102: RfigerA01
+    400104: RfigerA02
+    400106: RfigerA03
+    400108: RfigerB01
+    400110: RfigerB02
+    400112: RfigerB03
+    400114: RfigerC01
+    400116: RfigerC02
+    400118: RfigerC03
+    400120: RfigerD01
+    400122: RfigerD02
+    400124: RfigerD03
+    400126: RfigerE01
+    400128: RfigerE02
+    400130: RfigerE03
+    400132: RFlipper01
+    400134: RFlipper02
+    400136: RFlipper03
+    400138: RForearm01
+    400140: RForearm02
+    400142: RHand
+    400144: RLeg01
+    400146: RLeg02
+    400148: Rloweyelid
+    400150: RMaskHoseBone
+    400152: Root
+    400154: RProp
+    400156: RShoulder
+    400158: RTankHoseBone01
+    400160: RTankHoseBone02
+    400162: RTankHoseBone03
+    400164: RTankHoseBone04
+    400166: Ruppereyelid
+    400168: Spine01
+    400170: Spine02
+    400172: Spine03
+    400174: Tank
+    2100000: 'Material #83'
+    2100002: 'Material #95'
+    2100004: 'Material #35'
+    2100006: 'Material #47'
+    2100008: 'Material #71'
+    4300000: Diver
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Diver
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #35'
+    second: {fileID: 2100000, guid: e5f9d6a01e647da4a83ca76e5e7a149f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #47'
+    second: {fileID: 2100000, guid: 94059f30d3a8a0247954e96409340bf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #71'
+    second: {fileID: 2100000, guid: cd474b5887dd03b4b96cfcb5255f40b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #83'
+    second: {fileID: 2100000, guid: 0fe22cd42c533b9498ccd10c8385b482, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #95'
+    second: {fileID: 2100000, guid: d75678a19793b73488c468a84aaa39ec, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 118
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
