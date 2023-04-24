@@ -47,12 +47,12 @@ public class FuzzySchoolController : SchoolController
 
         FuzzyVariable hungerVariable = new FuzzyVariable("Hunger");
         hungerVariable.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: maxHunger / 2));
-        hungerVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: maxHunger * 0.1f, one: maxHunger * 0.5f, max_zero: maxHunger * 0.9f));
+        hungerVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: maxHunger * 0.15f, one: maxHunger * 0.5f, max_zero: maxHunger * 0.85f));
         hungerVariable.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: maxHunger * 0.5f, one: maxHunger));
 
         FuzzyVariable sizeVariable = new FuzzyVariable("Size");
         sizeVariable.AddFuzzySet(new DiagonalLineFuzzySet("Small", one: minSizeScale, zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.5f));
-        sizeVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.1f, one: minSizeScale + (maxSizeScale - minSizeScale) * 0.5f, max_zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.9f));
+        sizeVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.15f, one: minSizeScale + (maxSizeScale - minSizeScale) * 0.5f, max_zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.85f));
         sizeVariable.AddFuzzySet(new DiagonalLineFuzzySet("Big", zero: minSizeScale + (maxSizeScale - minSizeScale) * 0.5f, one: maxSizeScale));
 
         FuzzyVariable ageSet = new FuzzyVariable("Age");
@@ -63,23 +63,23 @@ public class FuzzySchoolController : SchoolController
 
         FuzzyVariable energySet = new FuzzyVariable("Energy");
         energySet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: maxEnergy * 0.5f));
-        energySet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: maxEnergy * 0.1f, one: maxEnergy * 0.5f, max_zero: maxEnergy * 0.9f));
+        energySet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: maxEnergy * 0.15f, one: maxEnergy * 0.5f, max_zero: maxEnergy * 0.85f));
         energySet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: maxEnergy * 0.5f, one: maxEnergy));
 
         FuzzyVariable centroidDistanceSet = new FuzzyVariable("CentroidDistance");
         centroidDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: rho, zero: maxCentroidDistance * 0.5f));
-        centroidDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: rho, one: maxCentroidDistance * 0.5f, max_zero: maxCentroidDistance));
+        centroidDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: rho, one: maxCentroidDistance * 0.5f, max_zero: maxCentroidDistance*0.8f));
         centroidDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: maxCentroidDistance * 0.5f, one: maxCentroidDistance));
 
         FuzzyVariable predatorDistanceSet = new FuzzyVariable("PredatorDistance");
-        predatorDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: predatorRelevantDistance * 0.3f, zero: predatorRelevantDistance * 0.5f));
-        predatorDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: predatorRelevantDistance * 0.25f, one: predatorRelevantDistance * 0.5f, max_zero: predatorRelevantDistance * 0.75f));
-        predatorDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: predatorRelevantDistance * 0.7f, one: predatorRelevantDistance));
+        predatorDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: predatorRelevantDistance * 0.25f, zero: predatorRelevantDistance * 0.5f));
+        predatorDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: predatorRelevantDistance * 0.25f, one: predatorRelevantDistance * 0.5f, max_zero: predatorRelevantDistance * 0.8f));
+        predatorDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: predatorRelevantDistance * 0.5f, one: predatorRelevantDistance));
 
         FuzzyVariable preyDistanceSet = new FuzzyVariable("PreyDistance");
-        preyDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: 0.5f, zero: 3));
-        preyDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 2, one: 5, max_zero: 8));
-        preyDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: 7, one: 12));
+        preyDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: 3, zero: 7));
+        preyDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 3, one: 7, max_zero: 11));
+        preyDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: 7, one: 11));
 
 
 
@@ -87,7 +87,8 @@ public class FuzzySchoolController : SchoolController
 
         FuzzyVariable speedSet = new FuzzyVariable("Speed");
         speedSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: minSpeed, zero: minSpeed + (maxSpeed - minSpeed) * 0.5f));
-        speedSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: minSpeed + (maxSpeed - minSpeed) * 0.25f, one: minSpeed + (maxSpeed - minSpeed) * 0.5f, max_zero: minSpeed + (maxSpeed - minSpeed) * 0.75f)); speedSet.AddFuzzySet(new DiagonalLineFuzzySet("Fast", zero: minSpeed + (maxSpeed - minSpeed) * 0.5f, one: maxSpeed));
+        speedSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: minSpeed + (maxSpeed - minSpeed) * 0.15f, one: minSpeed + (maxSpeed - minSpeed) * 0.5f, max_zero: minSpeed + (maxSpeed - minSpeed) * 0.85f));
+        speedSet.AddFuzzySet(new DiagonalLineFuzzySet("Fast", zero: minSpeed + (maxSpeed - minSpeed) * 0.5f, one: maxSpeed));
 
         FuzzyVariable swimmingDepthSet = new FuzzyVariable("SwimmingDepth");
         swimmingDepthSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", zero: -20f, one: 0));
@@ -97,28 +98,28 @@ public class FuzzySchoolController : SchoolController
 
         FuzzyVariable preySearchingRangeSet = new FuzzyVariable("PreySearchingRange");
         preySearchingRangeSet.AddFuzzySet(new DiagonalLineFuzzySet("Small", one: preferedHuntingRange * 0.5f, zero: preferedHuntingRange));
-        preySearchingRangeSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: preferedHuntingRange * 0.5f, one: maxHuntingRange * 0.5f, max_zero: maxHuntingRange));
+        preySearchingRangeSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: preferedHuntingRange * 0.5f, one: maxHuntingRange * 0.5f, max_zero: maxHuntingRange*0.75f));
         preySearchingRangeSet.AddFuzzySet(new DiagonalLineFuzzySet("Big", zero: maxHuntingRange * 0.5f, one: maxHuntingRange));
 
         FuzzyVariable couzinDirectionWeightSet = new FuzzyVariable("CouzinDirectionWeight");
-        couzinDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.35f));
+        couzinDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.5f));
         couzinDirectionWeightSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
-        couzinDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.65f, one: 1));
+        couzinDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
 
         FuzzyVariable predatorAvoidanceDirectionWeightSet = new FuzzyVariable("PredatorAvoidanceDirectionWeight");
-        predatorAvoidanceDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.35f));
+        predatorAvoidanceDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.5f));
         predatorAvoidanceDirectionWeightSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
-        predatorAvoidanceDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.65f, one: 1));
+        predatorAvoidanceDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
 
         FuzzyVariable preyFollowingDirectionWeightSet = new FuzzyVariable("PreyFollowingDirectionWeight");
-        preyFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.35f));
+        preyFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.5f));
         preyFollowingDirectionWeightSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
-        preyFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.65f, one: 1));
+        preyFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
 
         FuzzyVariable centroidFollowingDirectionWeightSet = new FuzzyVariable("CentroidFollowingDirectionWeight");
-        centroidFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.35f));
+        centroidFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: 0.5f));
         centroidFollowingDirectionWeightSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
-        centroidFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.65f, one: 1));
+        centroidFollowingDirectionWeightSet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
 
 
 
