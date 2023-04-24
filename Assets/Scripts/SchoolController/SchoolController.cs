@@ -640,21 +640,11 @@ public class SchoolController : MonoBehaviour
 
         // Primero, se genera de manera aleatoria la posicion del individuo
         // La posicion generada es aleatoria, con centro en trasform.position y un radio igual a "instantiateRange"
-        Vector3 position;
-        if (centroid == Vector3.zero)
-        {
-            position = transform.position + new Vector3(
+        Vector3 position = centroid + new Vector3(
                 Random.Range(-spawnRange, spawnRange),
                 Random.Range(-spawnRange, spawnRange),
                 Random.Range(-spawnRange, spawnRange));
-        }
-        else
-        {
-            position = centroid + new Vector3(
-                Random.Range(-spawnRange, spawnRange),
-                Random.Range(-spawnRange, spawnRange),
-                Random.Range(-spawnRange, spawnRange));
-        }
+
         // Segundo, se genera de manera aleatoria la rotacion inicial del individuo
         Quaternion rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), 0);
 
@@ -721,7 +711,7 @@ public class SchoolController : MonoBehaviour
             List<int> deathFishIndex = new List<int>();
             for (int i = 0; i < fishList.Count; i++)
             {
-                if ((fishList[i].age / (fishList[i].age + lifeExpectation) / 2) > Random.Range(0f, 1f))
+                if ( (fishList[i].age / (fishList[i].age + lifeExpectation)) > Random.Range(0f, 1f) )
                 {
                     deathFishIndex.Add(i);
                 }
@@ -949,7 +939,7 @@ public class SchoolController : MonoBehaviour
     {
         if (fishList.Count < 1)
         {
-            return Vector3.zero;
+            return transform.position;
         }
 
         Vector3 centroid = Vector3.zero;
