@@ -12,12 +12,6 @@ public class FuzzySchoolController : SchoolController
     protected FuzzySystem fuzzySystem;
     Dictionary<string, float> variables;
 
-    public override void ResetSchool()
-    {
-        base.ResetSchool();
-        SetFuzzySystem();
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -34,7 +28,6 @@ public class FuzzySchoolController : SchoolController
         variables.Add("Size", 0);
         variables.Add("Age", 0);
         variables.Add("Energy", 0);
-        variables.Add("ObstacleDistance", 0);
         variables.Add("CentroidDistance", 0);
         variables.Add("PredatorDistance", 0);
         variables.Add("PreyDistance", 0);
@@ -72,11 +65,6 @@ public class FuzzySchoolController : SchoolController
         energySet.AddFuzzySet(new DiagonalLineFuzzySet("Low", one: 0, zero: maxEnergy * 0.5f));
         energySet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: maxEnergy * 0.1f, one: maxEnergy * 0.5f, max_zero: maxEnergy * 0.9f));
         energySet.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: maxEnergy * 0.5f, one: maxEnergy));
-
-        FuzzyVariable obstacleDistanceSet = new FuzzyVariable("ObstacleDistance");
-        obstacleDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: obstacleSearchingRange * 0.5f, zero: obstacleSearchingRange));
-        obstacleDistanceSet.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: obstacleSearchingRange, one: obstacleSearchingRange * 1.5f, max_zero: obstacleSearchingRange * 2f));
-        obstacleDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Far", zero: obstacleSearchingRange * 1.5f, one: obstacleSearchingRange * 2f));
 
         FuzzyVariable centroidDistanceSet = new FuzzyVariable("CentroidDistance");
         centroidDistanceSet.AddFuzzySet(new DiagonalLineFuzzySet("Close", one: rho, zero: maxCentroidDistance * 0.5f));
@@ -140,7 +128,6 @@ public class FuzzySchoolController : SchoolController
         fuzzySystem.AddIndependientVariable(sizeVariable);
         fuzzySystem.AddIndependientVariable(ageSet);
         fuzzySystem.AddIndependientVariable(energySet);
-        fuzzySystem.AddIndependientVariable(obstacleDistanceSet);
         fuzzySystem.AddIndependientVariable(centroidDistanceSet);
         fuzzySystem.AddIndependientVariable(predatorDistanceSet);
         fuzzySystem.AddIndependientVariable(preyDistanceSet);
@@ -396,5 +383,11 @@ public class FuzzySchoolController : SchoolController
         }
 
         return centroidFollowingDirection;
+    }
+    
+    public override void ResetSchool()
+    {
+        base.ResetSchool();
+        SetFuzzySystem();
     }
 }
