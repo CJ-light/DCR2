@@ -14,17 +14,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hawksbill.body
-    second: {fileID: 2100000, guid: c2323c0714ca68646acb15551943d5f4, type: 2}
+    second: {fileID: 2100000, guid: e4c5c8ba48b13ad44b61fbcacb90974e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: hawksbill.eyes
-    second: {fileID: 2100000, guid: e5cbe196e42ffda4c962b174e5d5e636, type: 2}
+    second: {fileID: 2100000, guid: 3b243328a9e310847a8da37860d4845d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: outer
-    second: {fileID: 2100000, guid: a611745d5d40ec2448a88ca5c67b473d, type: 2}
+    second: {fileID: 2100000, guid: e47d9e0fe580f804092bd7baa109830d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
