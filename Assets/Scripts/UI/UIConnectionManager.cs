@@ -73,10 +73,9 @@ public class UIConnectionManager : MonoBehaviour
     [SerializeField] protected GameObject selectedSpecies;
     [SerializeField] protected FuzzySchoolController speciesVariablesFuzzy;
     [SerializeField] protected SchoolController speciesVariablesNonFuzzy;
+    public GameObject camara;
     public Vector3 offset;
-    public Transform parentPreys;
-    public Transform parentPredators;
-    public Transform parentFuzzyPredators;
+    public Transform parentObject;
     public FrameOptimationManager selectedFrameManager;
 
     [Header("Species Controllers")]
@@ -130,7 +129,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesReefFish8);
-                speciesReefFish8 = Instantiate(prefabReefFish8,parentPreys);
+                speciesReefFish8 = Instantiate(prefabReefFish8,parentObject);
             }
             selectedSpecies = speciesReefFish8;
         }
@@ -139,7 +138,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesReefFish4);
-                speciesReefFish4 = Instantiate(prefabReefFish4,parentPreys);
+                speciesReefFish4 = Instantiate(prefabReefFish4,parentObject);
             }
             selectedSpecies = speciesReefFish4;
         }
@@ -148,7 +147,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesTinyYellow);
-                speciesTinyYellow = Instantiate(prefabTinyYellow,parentPreys);
+                speciesTinyYellow = Instantiate(prefabTinyYellow,parentObject);
             }
             selectedSpecies = speciesTinyYellow;
         }
@@ -157,7 +156,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesBlueTang);
-                speciesBlueTang = Instantiate(prefabBlueTang,parentPreys);
+                speciesBlueTang = Instantiate(prefabBlueTang,parentObject);
             }
             selectedSpecies = speciesBlueTang;
         }
@@ -166,7 +165,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesSeaHorse);
-                speciesSeaHorse = Instantiate(prefabSeaHorse,parentPreys);
+                speciesSeaHorse = Instantiate(prefabSeaHorse,parentObject);
             }
             selectedSpecies = speciesSeaHorse;
         }
@@ -175,7 +174,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesLionFish);
-                speciesLionFish = Instantiate(prefabLionFish,parentFuzzyPredators);
+                speciesLionFish = Instantiate(prefabLionFish,parentObject);
             }
             selectedSpecies = speciesLionFish;
         }
@@ -184,7 +183,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesTurtle);
-                speciesTurtle = Instantiate(prefabTurtle,parentPredators);
+                speciesTurtle = Instantiate(prefabTurtle,parentObject);
             }
             selectedSpecies = speciesTurtle;
         }
@@ -193,7 +192,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesStingray);
-                speciesStingray = Instantiate(prefabStingray,parentPredators);
+                speciesStingray = Instantiate(prefabStingray,parentObject);
             }
             selectedSpecies = speciesStingray;
         }
@@ -202,7 +201,7 @@ public class UIConnectionManager : MonoBehaviour
             if (restaurar)
             {
                 Destroy(speciesHammerHead);
-                speciesHammerHead = Instantiate(prefabHammerHead,parentPredators);
+                speciesHammerHead = Instantiate(prefabHammerHead,parentObject);
             }
             selectedSpecies = speciesHammerHead;
         }
@@ -862,8 +861,8 @@ public class UIConnectionManager : MonoBehaviour
         }
         if (fish)
         {
-            Camera.main.transform.position = fish.transform.position + offset;
-            Camera.main.transform.LookAt(fish.transform);
+            camara.transform.position = fish.transform.position + offset;
+            camara.transform.LookAt(fish.transform);
         }
     }
 

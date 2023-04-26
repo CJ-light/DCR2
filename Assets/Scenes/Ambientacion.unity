@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.115353234, g: 0.1455524, b: 0.17943376, a: 1}
+  m_IndirectSpecularColor: {r: 0.115431935, g: 0.14557949, b: 0.17922437, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9555,10 +9555,9 @@ MonoBehaviour:
   selectedSpecies: {fileID: 0}
   speciesVariablesFuzzy: {fileID: 0}
   speciesVariablesNonFuzzy: {fileID: 0}
+  camara: {fileID: 1498590470}
   offset: {x: 5, y: 5, z: 5}
-  parentPreys: {fileID: 0}
-  parentPredators: {fileID: 0}
-  parentFuzzyPredators: {fileID: 0}
+  parentObject: {fileID: 904347766}
   selectedFrameManager: {fileID: 904347765}
   speciesReefFish8: {fileID: 1317343836}
   speciesReefFish4: {fileID: 858517308}
@@ -19513,6 +19512,7 @@ GameObject:
   - component: {fileID: 1498590475}
   - component: {fileID: 1498590476}
   - component: {fileID: 1498590474}
+  - component: {fileID: 1498590477}
   m_Layer: 7
   m_Name: XR Origin
   m_TagString: MainCamera
@@ -19630,6 +19630,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &1498590477
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498590470}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1506648990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21078,8 +21092,8 @@ MonoBehaviour:
   opciones: {fileID: 3501121144767310713}
   elMenuInicial: {fileID: 1493320371}
   quit: {fileID: 761978474}
-  camara: {fileID: 369188891}
-  scrpt: LuxWater_ExtendedFlycam
+  camara: {fileID: 1498590470}
+  scrpt: CameraMovement
   advHide:
   - {fileID: 1491088364}
   - {fileID: 529540761}

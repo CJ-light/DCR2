@@ -10,7 +10,7 @@ public class ShowHideOptions : MonoBehaviour
     public GameObject opciones;
     public GameObject elMenuInicial;
     public Button quit;
-    public Camera camara;
+    public GameObject camara;
     public string scrpt;
     public List<GameObject> advHide;
 
