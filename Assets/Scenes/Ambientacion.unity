@@ -19373,6 +19373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 0}
   yourButton: {fileID: 634780113}
+  scriptCamara: {fileID: 1498590474}
 --- !u!114 &1493320374
 MonoBehaviour:
   m_ObjectHideFlags: 0

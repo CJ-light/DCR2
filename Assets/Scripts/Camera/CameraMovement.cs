@@ -28,25 +28,27 @@ public class CameraMovement : MonoBehaviour
 
 	void Update()
 	{
+		/*
 		if (_playerInput.actions["oculus"].WasPressedThisFrame())
 		{
 			oculus = !oculus;
 		}
 
 		if (!oculus)
-		{
-			// Cache deltaTime!
-			var deltaTime = Time.deltaTime;
-			rotationX += _playerInput.actions["MoveCameraX"].ReadValue<float>() * cameraSensitivity * deltaTime;
-			rotationY += _playerInput.actions["MoveCameraY"].ReadValue<float>() * cameraSensitivity * deltaTime;
-			rotationY = Mathf.Clamp(rotationY, -90, 90);
+		{*/
+		// Cache deltaTime!
+		var deltaTime = Time.deltaTime;
+		rotationX += _playerInput.actions["MoveCameraX"].ReadValue<float>() * cameraSensitivity * deltaTime;
+		rotationY += _playerInput.actions["MoveCameraY"].ReadValue<float>() * cameraSensitivity * deltaTime;
+		rotationY = Mathf.Clamp(rotationY, -90, 90);
 
-			var tempRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-			tempRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, tempRotation, deltaTime * 6.0f);
-		}
+		var tempRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+		tempRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+		transform.localRotation = Quaternion.Slerp(transform.localRotation, tempRotation, deltaTime * 6.0f);
+		//}
 
 		Vector3 movement;
+
 		if (_playerInput.actions["Fast"].ReadValue<float>() > .1f)
 		{
 			movement = transform.forward * fastMoveFactor * _playerInput.actions["MoveY"].ReadValue<float>() +
