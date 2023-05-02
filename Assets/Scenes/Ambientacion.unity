@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11539202, g: 0.14570488, b: 0.17936346, a: 1}
+  m_IndirectSpecularColor: {r: 0.115353234, g: 0.1455524, b: 0.17943376, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21071,7 +21071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02dbb88741b95bb4899b481db50baeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camara: {fileID: 369188880}
+  camera: {fileID: 369188880}
   cameraVR: {fileID: 1470525567}
   load: {fileID: 615747329}
   MainM: {fileID: 1493320371}

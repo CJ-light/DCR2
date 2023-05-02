@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class mainmenu : MonoBehaviour
 {
-    public GameObject camara;
+    public GameObject camera;
     public GameObject cameraVR;
     public GameObject load;
     public GameObject MainM;
@@ -32,7 +32,7 @@ public class mainmenu : MonoBehaviour
         }
         else
         {
-            camara.SetActive(true);
+            camera.SetActive(true);
         }
 
 
