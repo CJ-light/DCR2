@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.115353234, g: 0.1455524, b: 0.17943376, a: 1}
+  m_IndirectSpecularColor: {r: 0.115431935, g: 0.14557949, b: 0.17922437, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19373,6 +19373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 0}
   yourButton: {fileID: 634780113}
+  camaraMovible: {fileID: 1498590470}
+  scrpt: CameraMovement
 --- !u!114 &1493320374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19477,7 +19479,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498590470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 249637d9ed3852741a0d26d851f7aa48, type: 3}
   m_Name: 
