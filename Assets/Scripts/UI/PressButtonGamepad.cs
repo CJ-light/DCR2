@@ -26,9 +26,13 @@ public class PressButtonGamepad : MonoBehaviour
             if (_playerInput.actions["Start"].WasPressedThisFrame())
             {
                 yourButton.onClick.Invoke();
-                (camaraMovible.GetComponent(scrpt) as MonoBehaviour).enabled = true;
-                iniciado = true;
             }
         }
+    }
+
+    public void ActivarScript()
+    {
+        (camaraMovible.GetComponent(scrpt) as MonoBehaviour).enabled = true;
+        iniciado = true;
     }
 }

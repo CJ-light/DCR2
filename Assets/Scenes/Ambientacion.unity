@@ -7203,6 +7203,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1493320373}
+        m_TargetAssemblyTypeName: PressButtonGamepad, Assembly-CSharp
+        m_MethodName: ActivarScript
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &634780114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17799,7 +17811,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 959053f1f82b99a4e9082cd79fe83e6a, type: 3}
-    m_FontSize: 18
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -17810,10 +17822,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Proyecto terminal\n\nAsesor - Dr.Hector Fernando Gom\xE9z\nCoasesor -
-    Dr. David Israel Flores Granados\nBeneficiario - Dr. Jos\xE9 Ad\xE1n Caballero
-    Vazquez\n\nTodos los modelos fueron sacados de la p\xE1gina \nSketcfab.\n\nLa
-    m\xFAsica utilizada en el proyecto fue sacada de ZapSplat."
+  m_Text: "\nProyecto terminal\n\nComportamientos desarrollados por:\r\n-Humberto
+    de Jes\xFAs Jim\xE9nez Guti\xE9rrez\r\n-Kevin Zahid Cruz Bravo\r\n-Ricardo Gonz\xE1lez
+    Jara\n\nAsesor - Dr.Hector Fernando Gom\xE9z\nCoasesor - Dr. David Israel Flores
+    Granados\nBeneficiario - Dr. Jos\xE9 Ad\xE1n Caballero Vazquez\n\nTodos los modelos
+    fueron sacados de la p\xE1gina \nSketcfab.\n\nLa m\xFAsica utilizada en el proyecto
+    fue sacada de ZapSplat."
 --- !u!222 &1405902879
 CanvasRenderer:
   m_ObjectHideFlags: 0
