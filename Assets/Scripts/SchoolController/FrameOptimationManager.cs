@@ -5,8 +5,10 @@ using UnityEngine;
 public class FrameOptimationManager : MonoBehaviour
 {
     public int nFrame = 60; // division de trabajo en 60 bloques, un pez hara labores como detectar muros, cada 60 frames
-    [DisplayWithoutEdit] public int currentFrame;
-    [DisplayWithoutEdit] public int fishCount;
+    //[DisplayWithoutEdit]
+    public int currentFrame;
+    //[DisplayWithoutEdit]
+    public int fishCount;
 
     private void Awake()
     {

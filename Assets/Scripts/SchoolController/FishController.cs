@@ -12,28 +12,37 @@ public class FishController : MonoBehaviour
     public SchoolController schoolController;
 
     [Header("Informed Settings")]
-    [DisplayWithoutEdit] public bool isInformed;
-    [DisplayWithoutEdit] public float omega;
-    [DisplayWithoutEdit] public Vector3 g;
+    //[DisplayWithoutEdit]
+    public bool isInformed;
+    //[DisplayWithoutEdit]
+    public float omega;
+    //[DisplayWithoutEdit]
+    public Vector3 g;
 
     [Header("FishInformation")]
-    [DisplayWithoutEdit] public float speed;
+    //[DisplayWithoutEdit]
+    public float speed;
     float currentSpeed;
-    [DisplayWithoutEdit] public Vector3 direction;
-    [DisplayWithoutEdit] public float preySearchingRange;
+    //[DisplayWithoutEdit]
+    public Vector3 direction;
+    //[DisplayWithoutEdit]
+    public float preySearchingRange;
 
     [Header("Regrouping")]
-    [DisplayWithoutEdit] public bool gotoCentroid;
+    //[DisplayWithoutEdit]
+    public bool gotoCentroid;
 
 
     [Header("Obstacles Avoidance")]
     public List<Vector3> pointList;
 
     [Header("Predator Avoidance")]
-    [DisplayWithoutEdit] public Vector3 escapeRouteNoise;
+    //[DisplayWithoutEdit]
+    public Vector3 escapeRouteNoise;
 
     [Header("Prey Following")]
-    [DisplayWithoutEdit] public bool searchingPrey;
+    //[DisplayWithoutEdit]
+    public bool searchingPrey;
     public GameObject prey;
     float followingTimeCounter;
 
@@ -41,12 +50,15 @@ public class FishController : MonoBehaviour
     public float age;
     public float hunger;
     public float energy;
-    [DisplayWithoutEdit] public bool recoveringEnergy = true;
-    [DisplayWithoutEdit] public float sizeScale;
+    //[DisplayWithoutEdit]
+    public bool recoveringEnergy = true;
+    //[DisplayWithoutEdit]
+    public float sizeScale;
     bool updateSizeScale;
 
     [Header("Optimation Settings")]
-    [DisplayWithoutEdit] public int assignedFrame;
+    //[DisplayWithoutEdit]
+    public int assignedFrame;
 
     private void Start()
     {

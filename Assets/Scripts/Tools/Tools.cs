@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
+/*
 /// INI DisplayWithoutEdit 
 /// Codigo tomado de Zuwolf, de un post que realizo en Agosto 18, 2016, en un foro de discusion de Unity.
 /// Sitio web: https://forum.unity.com/threads/how-do-you-disable-inspector-editing-of-a-public-variable.142100/
@@ -80,7 +81,7 @@ public class DisplayWithoutEditDrawer : PropertyDrawer
     }
 }
 /// END DisplayWithoutEdit 
-
+*/
 public static class Tools
 {
     public static float AngleBetween2Vectors(Vector3 u, Vector3 v)

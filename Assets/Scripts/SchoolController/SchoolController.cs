@@ -11,7 +11,8 @@ public class SchoolController : MonoBehaviour
     [SerializeField] protected GameObject fishPrefab;
     public int maxPopulation = 60;
     public int initialPopulation = 40;
-    [DisplayWithoutEdit] public int currentPopulation;
+    //[DisplayWithoutEdit]
+    public int currentPopulation;
     public float spawnRange = 6f;
     private bool spawnInitialFish = true;
 
@@ -64,7 +65,8 @@ public class SchoolController : MonoBehaviour
     public float minSizeScale = 0.5f; // escala minima del tamaño del pez, cuando el pez acaba de nacer
     public float maxSizeScale = 1.5f; // escala maxima del tamaño pez, cuando la edad del pez es igual o mayor a ageToReachMaxSize
     public float ageToReachMaxSize = 600;
-    [DisplayWithoutEdit] public Vector3 originalSizeScale;
+    //[DisplayWithoutEdit]
+    public Vector3 originalSizeScale;
 
     [Header("Regeneration Settings")]
     public float regenerationTime = 30;
@@ -74,7 +76,8 @@ public class SchoolController : MonoBehaviour
     [Header("Regrouping Settings")]
     public float maxCentroidDistance = 30;
     public float minCentroidDistance = 10;
-    [DisplayWithoutEdit] public Vector3 centroid;
+    //[DisplayWithoutEdit]
+    public Vector3 centroid;
 
     [Header("Foreign Fish Interaction Settings")]
     public List<string> othersTag;

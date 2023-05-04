@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.115431935, g: 0.14557949, b: 0.17922437, a: 1}
+  m_IndirectSpecularColor: {r: 0.11539202, g: 0.14570488, b: 0.17936346, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20041,7 +20041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &1556944646
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -21086,7 +21086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02dbb88741b95bb4899b481db50baeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 369188880}
+  camara: {fileID: 369188880}
   cameraVR: {fileID: 1470525567}
   load: {fileID: 615747329}
   MainM: {fileID: 1493320371}
