@@ -310,6 +310,9 @@ namespace FuzzyLogic
         }
     }
 
+    /*
+    Fuzzy Variable :: This is the data type that we use 
+    */
     public class FuzzyVariable
     {
         protected Dictionary<string, FuzzySet> fuzzySets;
@@ -373,6 +376,11 @@ namespace FuzzyLogic
         }
     }
 
+    /*
+    This is going to be the template for defining the fuzzy sets of our fuzzy variables?
+    Working kind of like an interface, it defines the functions that we will use for each new Fuzzy set
+    The only actual thing this base class will do is save the name of the Fuzzy set declared with it.
+    */
     public class FuzzySet
     {
         string name;
