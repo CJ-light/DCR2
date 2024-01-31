@@ -416,7 +416,7 @@ namespace FuzzyLogic
 
     public class DiagonalLineFuzzySet : FuzzySet
     {
-
+        
         float zero;
         float one;
         float m;
