@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using FuzzyLogic;
 
+/*
+FuzzySchoolController
+*/
 public class FuzzySchoolController : SchoolController
 {
     [Header("Fuzzy Speed Settings")]
@@ -33,6 +36,14 @@ public class FuzzySchoolController : SchoolController
         variables.Add("PreyDistance", 0);
     }
 
+    /*
+    SetFuzzySystem :: This prepares the Fuzzy System, the fuzzy system is the high level representation of the Fuzzy logic processes.
+        It prepares the independent and dependent fuzzy variables that we're going to use, and then we declare how they're going to affect each other with the rules. 
+    Parameters ::
+        None
+    Return ::
+        None
+    */
     protected void SetFuzzySystem()
     {
         fuzzySystem = new FuzzySystem("FishFuzzySystem");
@@ -40,6 +51,11 @@ public class FuzzySchoolController : SchoolController
         SetRules();
     }
 
+    /*
+    SetVariables :: This function will prepare the independent and dependent fuzzy variables.
+        This includes declaring the name of each variable. It also includes the definition of the fuzzy sets in each variable.
+        
+    */
     protected virtual void SetVariables()
     {
 
@@ -124,6 +140,7 @@ public class FuzzySchoolController : SchoolController
 
 
         /* ADD VARIABLES TO FUZZY SYSTEM */
+        //?? Can a variable be both an Independent and Dependent variable
 
         fuzzySystem.AddIndependientVariable(hungerVariable);
         fuzzySystem.AddIndependientVariable(sizeVariable);
