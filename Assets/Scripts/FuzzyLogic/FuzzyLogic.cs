@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using FuzzyLogic;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine;
 
 /*
     Autor: Humberto De Jesus Jimenez Gutierrez
@@ -399,6 +400,32 @@ namespace FuzzyLogic
             return 0;
         }
 
+        /*
+            GetIndependientFuzzyVariable:: Function that gets the name of a variable and returns that variable
+        */
+        public FuzzyVariable GetIndependientFuzzyVariable(string variableName){
+            if (independientVariables.ContainsKey(variableName))
+            {
+                return independientVariables[variableName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /*
+            GetDependientFuzzyVariable:: Fucntion that gets the name of the variable and returns that variable
+        */
+        public FuzzyVariable GetDependientFuzzyVariable(string variableName){
+            if(dependientVariables.ContainsKey(variableName)){
+                return dependientVariables[variableName];
+            }
+            else{
+                return null;
+            }
+        }
+
         public string Name()
         {
             return name;
@@ -562,6 +589,28 @@ namespace FuzzyLogic
             }
 
             return fuzziedSets;
+        }
+
+        /*
+        FuzzificationClosest: This function returns the fuzzySet with the biggest degree of membership (The category that applies the most)
+            This is used for the tests to have an idea of the current individuals that apply to one category the most (ex. Checking the amount of Young, Adult and Old fish at a certain time)
+        */
+        public string FuzzificationClosestSet(float value)
+        {
+            float maxMembership = -1;
+            float curMembership;
+            string maxMembershipName = "";
+
+            foreach (KeyValuePair<string, FuzzySet> fuzzySet in fuzzySets)
+            {
+                curMembership = fuzzySet.Value.MembershipFunction(value);
+                if (curMembership > maxMembership)
+                {
+                    maxMembership = curMembership;
+                    maxMembershipName = fuzzySet.Key;
+                }
+            }
+            return maxMembershipName;
         }
 
         /*
@@ -955,21 +1004,23 @@ namespace FuzzyLogic
             return intersection;
         }
     }
+
+    /*
+    This is the class for fuzzy sets using the gaussian distribution
+    */
     public class GaussianFuzzySet : FuzzySet
     {
         string name;
         float centroid;
         float stdDev;
         float indicatorMult;
-        float thresholdL;
-        float thresholdR;
 
         public GaussianFuzzySet(string name, float centroid, float stdDev, float indicatorMult = 3) : base(name)
         {
             this.name = name;
             this.centroid = centroid;
             this.stdDev = stdDev;
-            this.indicatorMult = indicatorMult;
+            this.indicatorMult = indicatorMult; //This is the max amount of standard deviations from the center that it takes for a value to be declared to be in this fuzzy set or not
         }
         public override bool IndicatorFunction(float value)
         {
@@ -987,7 +1038,7 @@ namespace FuzzyLogic
                 return 0;
             }
             else{
-                return MathF.Exp(-((value-centroid)/(2*MathF.Pow(stdDev,2))));
+                return MathF.Exp(-(MathF.Pow((value-centroid),2)/(2*MathF.Pow(stdDev,2))));
             }
         }
 
@@ -1001,7 +1052,7 @@ namespace FuzzyLogic
                 value = 1;
             }
 
-            return stdDev*MathF.Pow(2,0.5f)*MathF.Pow(-MathF.Log(value),0.5f)+centroid;
+            return stdDev*MathF.Pow(2,0.5f)*MathF.Pow(-MathF.Log(value),0.5f)+centroid;             //Using the inverse function of the membership function
         }
 
         public override float LastIntersection(float value)

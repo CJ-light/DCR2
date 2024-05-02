@@ -84,6 +84,16 @@ public class FishController : MonoBehaviour
 
         // Establecer la velocidad inicial
         currentSpeed = schoolController.normalSpeed;
+
+        /*if (schoolController.fixedAge)
+        {
+            age = schoolController.lifeExpectation * schoolController.fixedAgeValue;
+        }
+
+        if(schoolController.fixedEnergy)
+        {
+            energy = schoolController.maxEnergy * schoolController.fixedEnergyValue;
+        }*/
     }
 
     private void FixedUpdate()
@@ -153,8 +163,12 @@ public class FishController : MonoBehaviour
 
     private void Update()
     {
-        // Actualizar edad
-        age += Time.deltaTime;
+        //Actualizar edad
+        
+        if (schoolController.fixedAge == false)
+        {
+            age += Time.deltaTime;
+        }
 
         // Actualizar hambre
         hunger += schoolController.hungerIncrement * Time.deltaTime;
@@ -172,22 +186,26 @@ public class FishController : MonoBehaviour
         }
 
         // Actualizar energia
-        if (recoveringEnergy)
+        // If the energy is fixed then don't change the energy
+        if (schoolController.fixedEnergy == false)
         {
-            energy += schoolController.energyIncrement * Time.deltaTime;
-            if (energy > schoolController.maxEnergy)
+            if (recoveringEnergy)
             {
-                recoveringEnergy = false;
-                energy = schoolController.maxEnergy;
+                energy += schoolController.energyIncrement * Time.deltaTime;
+                if (energy > schoolController.maxEnergy)
+                {
+                    recoveringEnergy = false;
+                    energy = schoolController.maxEnergy;
+                }
             }
-        }
-        else
-        {
-            energy -= schoolController.energyDecrement * Time.deltaTime;
-            if (energy < 0)
+            else
             {
-                recoveringEnergy = true;
-                energy = 0;
+                energy -= schoolController.energyDecrement * Time.deltaTime;
+                if (energy < 0)
+                {
+                    recoveringEnergy = true;
+                    energy = 0;
+                }
             }
         }
 

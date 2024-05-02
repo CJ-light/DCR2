@@ -14,7 +14,7 @@ public class SchoolController : MonoBehaviour
     //[DisplayWithoutEdit]
     public int currentPopulation;
     public float spawnRange = 6f;
-    private bool spawnInitialFish = true;
+    protected bool spawnInitialFish = true;
 
     [Header("Couzin Settings")]
     public float p = 0.1f;
@@ -39,6 +39,20 @@ public class SchoolController : MonoBehaviour
     [SerializeField] protected bool updateKnownRoutes = true;
     [SerializeField] protected bool enableRouteConsensus = true;
 
+    //proportion:: This variable is used to make variables go faster (used for testing)
+    //  For example, I could use it to make the age of a fish last 120s without changing the original variable
+    //  Its better to have it as a seperate variable because then I can also use it for other variables like hunger or energy
+    //  Default value (1): This means that it doesn't change the value
+    //  fixedAge/fixedAgeValue :: The variables let you know if the age will never change (fixedAge), and if so what age it would be (fixedAgeValue)
+    //  fixedEnergy/fixedEnergyValue :: The variables let you know if the energy will never change (fixedEnergy), and if so what energy it would be (fixedEnergyValue)
+    //  fixedAgeValue/fixedEnergyValue :: Both of these float variables that range from [0-1] should represent the % of the max value that they represent (lifeExpectency/maxEnergy)
+    [Header("Testing Variables")]
+    public float proportion = 1f;
+    public bool fixedAge = false;
+    public float fixedAgeValue = 0.5f;
+    public bool fixedEnergy = false;
+    public float fixedEnergyValue = 0.5f;
+
     [Header("Hunger Settings")]
     public float maxHunger = 1;
     public float initialHunger = 0.65f;
@@ -56,9 +70,11 @@ public class SchoolController : MonoBehaviour
     [SerializeField] protected bool randomInitialEnergy = false;
 
     [Header("Age Settings")]
-    [SerializeField] protected int lifeExpectation = 1200;
+    [SerializeField] public int lifeExpectation = 1200;
     [SerializeField] protected float deathFunctionCallTime = 30;
     [SerializeField] protected bool enableDeathByAge = false;
+
+    [SerializeField] protected bool randomAge = false;
 
     [Header("Size Settings")]
     public float bodySize = 2; // tamano del cuerpo en metros cubicos
@@ -181,6 +197,10 @@ public class SchoolController : MonoBehaviour
             energyThreshold = maxEnergy/2f;
         }
 
+        //Adding proportions
+        lifeExpectation = (int)((float)lifeExpectation/proportion);
+        ageToReachMaxSize = (int)((float)ageToReachMaxSize/proportion);
+
         // Inicializacion de la escala original
         originalSizeScale = fishPrefab.transform.localScale;
 
@@ -215,7 +235,7 @@ public class SchoolController : MonoBehaviour
         Invoke("UpdateFishInformation", delta_t);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         // Actualizar el centroide del cardumen
         centroid = GetSchoolCentroid();
@@ -227,7 +247,7 @@ public class SchoolController : MonoBehaviour
         if (spawnInitialFish)
         {
             // Se genera un nuevo individuo y se añade a la lista fishList
-            FishController fish = GenerateFish(randomAge: true);
+            FishController fish = GenerateFish();
             if (fish == null)
             {
                 spawnInitialFish = false;
@@ -635,7 +655,7 @@ public class SchoolController : MonoBehaviour
         return neighbors;
     }
 
-    FishController GenerateFish(bool randomAge = false)
+    protected FishController GenerateFish()
     {
         // Solo se generan N peces, si se trata de generar otro, la funcion GenerateFish() retorna null
         if (fishList.Count >= maxPopulation)
@@ -661,10 +681,17 @@ public class SchoolController : MonoBehaviour
         // Se asigna el SchoolController como padre del individuo generado
         fish.transform.SetParent(transform);
         fish.assignedFrame = frameManager.RegisterFish();
-        if (randomAge)
+        if (fixedAge)
+        {
+            fish.age = lifeExpectation * fixedAgeValue;
+        }
+        else if (randomAge){
             fish.age = Random.Range(0, lifeExpectation);
+        }
         else
+        {
             fish.age = 0;
+        }
         if (randomInitialHunger)
             fish.hunger = Random.Range(0, maxHunger);
         else
@@ -674,6 +701,11 @@ public class SchoolController : MonoBehaviour
         {
             fish.energy = Random.Range(0, maxEnergy);
             fish.recoveringEnergy = Random.Range(0, 2) == 1;
+        }
+        else if (fixedEnergy)
+        {
+            fish.energy = maxEnergy * fixedEnergyValue;
+            fish.recoveringEnergy = false;
         }
         else
         {
@@ -688,7 +720,7 @@ public class SchoolController : MonoBehaviour
         return fish;
     }
 
-    void MakeFishInformed()
+    protected void MakeFishInformed()
     {
         if (fishList.Count > 0)
         {

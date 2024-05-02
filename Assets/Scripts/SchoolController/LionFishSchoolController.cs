@@ -187,5 +187,6 @@ public class LionFishSchoolController : FuzzySchoolController
         antecedents.Add("Age", "Old");
         consequent = new KeyValuePair<string, string>("CentroidFollowingDirectionWeight", "Low");
         fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
     }
 }
