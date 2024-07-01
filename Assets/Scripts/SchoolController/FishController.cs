@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FishController : MonoBehaviour
 {
-
     [Header("Dependencies")]
     public Animation anim;
     public GameObject[] obstacleDetector;
@@ -36,6 +35,9 @@ public class FishController : MonoBehaviour
     [Header("Obstacles Avoidance")]
     public List<Vector3> pointList;
 
+    [Header("Hiding Locations")]
+    public Vector3 hideLocation;
+
     [Header("Predator Avoidance")]
     //[DisplayWithoutEdit]
     public Vector3 escapeRouteNoise;
@@ -50,11 +52,22 @@ public class FishController : MonoBehaviour
     public float age;
     public float hunger;
     public float energy;
+
+    //Even though they have energy Increment and Decrement each school, create values energy Increment and energyDecrement for each fish
+    public float energyIncrement;
+    public float energyDecrement; 
+
+
     //[DisplayWithoutEdit]
     public bool recoveringEnergy = true;
     //[DisplayWithoutEdit]
     public float sizeScale;
     bool updateSizeScale;
+
+    //This is for energy regen when its using fuzzy sets.
+    [Header("Individual Energy Regen")]
+    public float individualEnergyIncrement;
+    public float individualEnergyDecrement;
 
     [Header("Optimation Settings")]
     //[DisplayWithoutEdit]
@@ -84,16 +97,19 @@ public class FishController : MonoBehaviour
 
         // Establecer la velocidad inicial
         currentSpeed = schoolController.normalSpeed;
-
-        /*if (schoolController.fixedAge)
+    }
+    //Fix:: Is not drawing these gizmos. Or maybe they're not noteciable.
+    // Draw Gizmos when the object is selected in the editor
+    private void OnDrawGizmos()
+    {
+        
+        foreach (GameObject detector in obstacleDetector)
         {
-            age = schoolController.lifeExpectation * schoolController.fixedAgeValue;
+            // Draws a 5 unit long red line in front of the object
+            Gizmos.color = Color.red;
+            Vector3 direction = transform.TransformDirection(detector.transform.forward) * schoolController.obstacleSearchingRange;
+            Gizmos.DrawRay(detector.transform.position, direction);
         }
-
-        if(schoolController.fixedEnergy)
-        {
-            energy = schoolController.maxEnergy * schoolController.fixedEnergyValue;
-        }*/
     }
 
     private void FixedUpdate()
@@ -129,12 +145,22 @@ public class FishController : MonoBehaviour
             }
 
             // Deteccion de obstaculos, para cada detector se lanza un Raycast
+            // Deteccion de localizaciones en donde el pez puede esconderse
             foreach (GameObject detector in obstacleDetector)
             {
+
                 RaycastHit hit;
-                if (Physics.Raycast(detector.transform.position, detector.transform.forward, out hit, schoolController.obstacleSearchingRange, schoolController.obstacleLayer))
+                if (Physics.Raycast(detector.transform.position, detector.transform.forward, out hit, schoolController.obstacleSearchingRange, schoolController.combinedLayer))
                 {
-                    pointList.Add(hit.point);
+                    //Bit shift 1 to the left the amount of times the layer number that you got   
+                    if ((1<<hit.collider.gameObject.layer) == schoolController.obstacleLayer){
+                        Debug.Log("Found Obstacle");
+                        pointList.Add(hit.point);
+                    }
+                    else {
+                        Debug.Log("Found location");
+                        hideLocation = hit.point;
+                    }
                 }
             }
 
@@ -186,8 +212,21 @@ public class FishController : MonoBehaviour
         }
 
         // Actualizar energia
+        // If its using fuzzy logic then calculate the energy by using this fish's energy decrement and energy increment values
         // If the energy is fixed then don't change the energy
-        if (schoolController.fixedEnergy == false)
+        // else we go to the normal state, where it recovers energy until it reaches max energy and then it lowers its energy until its 0, which will then trigger it to recover its energy again
+        if (schoolController.isFuzzy){
+            energy += (individualEnergyDecrement + individualEnergyIncrement) * Time.deltaTime;
+            if (energy > schoolController.maxEnergy)
+            {
+                energy = schoolController.maxEnergy;
+            }
+            else if (energy < 0)
+            {
+                energy = 0;
+            }
+        }
+        else if (schoolController.fixedEnergy == false)
         {
             if (recoveringEnergy)
             {

@@ -39,6 +39,9 @@ public class SchoolController : MonoBehaviour
     [SerializeField] protected bool updateKnownRoutes = true;
     [SerializeField] protected bool enableRouteConsensus = true;
 
+    [Header("Fuzzy School")]
+    public bool isFuzzy = false;
+
     //proportion:: This variable is used to make variables go faster (used for testing)
     //  For example, I could use it to make the age of a fish last 120s without changing the original variable
     //  Its better to have it as a seperate variable because then I can also use it for other variables like hunger or energy
@@ -121,10 +124,17 @@ public class SchoolController : MonoBehaviour
     public float followingPreyMaxTime = 15f;
     public float huntingSuccessRate = 0.6f;
 
+    [Header("Hiding Location Settings")]
+    public LayerMask hidingLayer;
+
     [Header("Obtacles Avoidance Settings")]
     public LayerMask obstacleLayer;
     public float obstacleSearchingRange = 3;
     public float obstacleRelevantDistance = 6;
+
+    //Used to combine the obstacle and hiding layers
+    [Header("Combined Layers")]
+    public LayerMask combinedLayer;
 
     [Header("Swimming Depth Settings")]
     public float preferedSwimmingDepth = -30;
@@ -133,10 +143,11 @@ public class SchoolController : MonoBehaviour
     [Header("Direction Weight Settings")]
     public float couzinDirectionWeight = 1;
     public float centroidFollowingDirectionWeight = 2f;
-    public float obstacleAvoidanceDirectionWeight = 4f;
+    public float obstacleAvoidanceDirectionWeight = 8f;
     public float predatorAvoidanceDirectionWeight = 1;
     public float preyFollowingDirectionWeight = 4f;
     public float swimmingDepthDirectionWeight = 2;
+    public float hidingDirectionWeight = 100f; //This valuew was for testing
 
     [Header("Speed Settings")]
     public float normalSpeed = 2;
@@ -203,6 +214,9 @@ public class SchoolController : MonoBehaviour
 
         // Inicializacion de la escala original
         originalSizeScale = fishPrefab.transform.localScale;
+
+        //Initialize the combined layer, obstacle + hiding layer
+        combinedLayer = obstacleLayer | hidingLayer;
 
         // Inicializacion de listas
         fishList = new List<FishController>();
@@ -343,6 +357,7 @@ public class SchoolController : MonoBehaviour
         Vector3 couzinDirection = GetCouzinDirection(i);
         Vector3 knownRoute = GetKnownRoute(i);
         Vector3 obstacleAvoidanceDirection = GetObstacleAvoidanceDirection(i);
+        Vector3 hidingLocationDirection = GetHidingLocationDirection(i);
         Vector3 predatorAvoidanceDirection = GetPredatorAvoidanceDirection(i);
         Vector3 preyFollowingDirection = GetPreyFollowingDirection(i);
         Vector3 centroidFollowingDirection = GetCentroidFollowingDirection(i);
@@ -351,6 +366,7 @@ public class SchoolController : MonoBehaviour
         Vector3 preferedDirection = couzinDirection * couzinDirectionWeight
                                   + knownRoute * fishList[i].omega
                                   + obstacleAvoidanceDirection * obstacleAvoidanceDirectionWeight
+                                  //+ hidingLocationDirection * hidingDirectionWeight
                                   + predatorAvoidanceDirection * predatorAvoidanceDirectionWeight
                                   + preyFollowingDirection * preyFollowingDirectionWeight
                                   + centroidFollowingDirection * centroidFollowingDirectionWeight
@@ -392,6 +408,23 @@ public class SchoolController : MonoBehaviour
             }
         }
         return obstacleAvoidanceDirection;
+    }
+
+    protected Vector3 GetHidingLocationDirection(int i)
+    {
+        //Calcula la direccion de la localizacion de escondite detectado y ve hacia el. (Solamente se esta escogiendo la ultima localizacion que ha visto)
+        Vector3 hidingDirection = Vector3.zero;
+        if (hidingDirectionWeight > 0)
+        {
+            if (fishList[i].hideLocation != Vector3.zero){
+                hidingDirection = (fishList[i].hideLocation - fishList[i].transform.position).normalized;
+                fishList[i].hideLocation = Vector3.zero;
+            }
+
+            if (hidingDirection != Vector3.zero)
+                hidingDirection /= hidingDirection.magnitude;
+        }
+        return hidingDirection;
     }
 
     protected Vector3 GetPredatorAvoidanceDirection(int i)

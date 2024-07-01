@@ -16,17 +16,21 @@ public class FuzzySchoolController : SchoolController
     [SerializeField] protected float minSpeed = 0.5f;
     [SerializeField] protected float maxSpeed = 5f;
 
+    [Header("Testing")]
+    protected bool isTesting = false;
+
     protected FuzzySystem fuzzySystem;
     Dictionary<string, float> variables;
 
     TextMeshPro m_textMeshPro;
 
     int schoolID;
-    int isFuzzyAge;
-    int isFuzzyEnergy;
-    int swimmingDepthRules2;
-    int centroidFollowingDirectionWeightRules2;
-    int couzinDirectionWeightRules2;
+    int isFuzzyAge = 1;
+    int isFuzzyEnergy = 1;
+    int swimmingDepthRules2 = 1;
+    int centroidFollowingDirectionWeightRules2 = 1;
+    int couzinDirectionWeightRules2 = 1;
+
     Dictionary<string, float> output_variables;
 
     Info.FuzzySchoolControllerInfo infoTool;
@@ -34,22 +38,27 @@ public class FuzzySchoolController : SchoolController
 
     protected override void Start()
     {
+        isFuzzy = true;
+        
         //Create the class that will store the information of this class
-        schoolID = gameObject.GetInstanceID();
-        infoTool = new Info.FuzzySchoolControllerInfo(schoolID, minSpeed, maxSpeed, lifeExpectation);
-        enableRegeneration = infoTool.enableRegeneration;
-        randomInitialEnergy = Convert.ToBoolean(infoTool.startRandomEnergy);
-        randomAge = Convert.ToBoolean(infoTool.startRandomAge);
-        isFuzzyAge = infoTool.isFuzzyAge;
-        isFuzzyEnergy = infoTool.isFuzzyEnergy;
-        proportion = infoTool.proportion;
-        fixedAge = Convert.ToBoolean(infoTool.fixedAge);
-        fixedAgeValue = infoTool.fixedAgeValue;
-        fixedEnergy = Convert.ToBoolean(infoTool.fixedEnergy);
-        fixedEnergyValue = infoTool.fixedEnergyValue;
-        swimmingDepthRules2 = infoTool.swimmingDepthRules2;
-        centroidFollowingDirectionWeightRules2 = infoTool.centroidFollowingDirectionWeightRules2;
-        couzinDirectionWeightRules2 = infoTool.couzinDirectionWeightRules2;
+        if (isTesting)
+        {
+            schoolID = gameObject.GetInstanceID();
+            infoTool = new Info.FuzzySchoolControllerInfo(schoolID, minSpeed, maxSpeed, lifeExpectation);
+            enableRegeneration = infoTool.enableRegeneration;
+            randomInitialEnergy = Convert.ToBoolean(infoTool.startRandomEnergy);
+            randomAge = Convert.ToBoolean(infoTool.startRandomAge);
+            isFuzzyAge = infoTool.isFuzzyAge;
+            isFuzzyEnergy = infoTool.isFuzzyEnergy;
+            proportion = infoTool.proportion;
+            fixedAge = Convert.ToBoolean(infoTool.fixedAge);
+            fixedAgeValue = infoTool.fixedAgeValue;
+            fixedEnergy = Convert.ToBoolean(infoTool.fixedEnergy);
+            fixedEnergyValue = infoTool.fixedEnergyValue;
+            swimmingDepthRules2 = infoTool.swimmingDepthRules2;
+            centroidFollowingDirectionWeightRules2 = infoTool.centroidFollowingDirectionWeightRules2;
+            couzinDirectionWeightRules2 = infoTool.couzinDirectionWeightRules2;
+        }
 
         base.Start();   //Runs the start function of SchoolController.cs
 
@@ -69,13 +78,14 @@ public class FuzzySchoolController : SchoolController
         variables.Add("PredatorDistance", 0);
         variables.Add("PreyDistance", 0);
 
-        //m_textMeshPro = gameObject.AddComponent<TextMeshPro>(); 
-
         GameObject newTextObject = new GameObject("NewTextObject");
         m_textMeshPro = newTextObject.AddComponent<TextMeshPro>();
-
-        m_textMeshPro.text = "Speed";
-        m_textMeshPro.fontSize = 100;
+        if (isTesting)
+        {
+            m_textMeshPro.text = "Speed";
+            m_textMeshPro.fontSize = 100;
+        }
+        
     }
 
     /*
@@ -262,6 +272,21 @@ public class FuzzySchoolController : SchoolController
         centroidFollowingDirectionWeightVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
         centroidFollowingDirectionWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
 
+        FuzzyVariable hidingDirectionWeightVariable = new FuzzyVariable("HidingDirectionWeight");
+        hidingDirectionWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("Low", one:0, zero: 0.5f));
+        hidingDirectionWeightVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
+        hidingDirectionWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
+
+        FuzzyVariable energyIncrementWeightVariable = new FuzzyVariable("EnergyIncrementWeight");
+        energyIncrementWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("Low", one:0, zero: 0.5f));
+        energyIncrementWeightVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
+        energyIncrementWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
+
+        FuzzyVariable EnergyDecrementWeightVariable = new FuzzyVariable("EnergyDecrementWeight");
+        EnergyDecrementWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("Low", one:0, zero: 0.5f));
+        EnergyDecrementWeightVariable.AddFuzzySet(new TriangularFuzzySet("Medium", min_zero: 0.15f, one: 0.5f, max_zero: 0.85f));
+        EnergyDecrementWeightVariable.AddFuzzySet(new DiagonalLineFuzzySet("High", zero: 0.5f, one: 1));
+
 
 
         /* ADD VARIABLES TO FUZZY SYSTEM */
@@ -282,6 +307,9 @@ public class FuzzySchoolController : SchoolController
         fuzzySystem.AddDependientVariable(predatorAvoidanceDirectionWeightVariable);
         fuzzySystem.AddDependientVariable(preyFollowingDirectionWeightVariable);
         fuzzySystem.AddDependientVariable(centroidFollowingDirectionWeightVariable);
+        fuzzySystem.AddDependientVariable(hidingDirectionWeightVariable);
+        fuzzySystem.AddDependientVariable(energyIncrementWeightVariable);
+        fuzzySystem.AddDependientVariable(EnergyDecrementWeightVariable);
     }
 
     protected virtual void SetRules()
@@ -360,12 +388,12 @@ public class FuzzySchoolController : SchoolController
             case 1:
                 antecedents = new Dictionary<string, string>();
                 antecedents.Add("Age", "Fry");
-                consequent = new KeyValuePair<string, string>("SwimmingDepth", "Very High");
+                consequent = new KeyValuePair<string, string>("SwimmingDepth", "VeryHigh");
                 fuzzySystem.AddRule(new Rule(antecedents, consequent));
 
                 antecedents = new Dictionary<string, string>();
                 antecedents.Add("Age", "Young");
-                consequent = new KeyValuePair<string, string>("SwimmingDepth", "Very High");
+                consequent = new KeyValuePair<string, string>("SwimmingDepth", "VeryHigh");
                 fuzzySystem.AddRule(new Rule(antecedents, consequent));
 
                 antecedents = new Dictionary<string, string>();
@@ -544,6 +572,99 @@ public class FuzzySchoolController : SchoolController
                 consequent = new KeyValuePair<string, string>("CentroidFollowingDirectionWeight", "Low");
                 fuzzySystem.AddRule(new Rule(antecedents, consequent));
                 break;
+            
+            /* Hiding Direction Weight */
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Fry");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Young");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Adult");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Old");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "Low");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "Medium");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "Medium");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "High");
+            consequent = new KeyValuePair<string, string>("HidingDirectionWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            /* Energy Increment Weight */
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "Low");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "Medium");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Hunger", "High");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Fry");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Young");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "High");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Adult");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "Medium");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));   
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Old");
+            consequent = new KeyValuePair<string, string>("EnergyIncrementWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent)); 
+
+            /*Energy Decrement Weight*/
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Fry");
+            consequent = new KeyValuePair<string, string>("EnergyDecrementWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Young");
+            consequent = new KeyValuePair<string, string>("EnergyDecrementWeight", "Low");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Adult");
+            consequent = new KeyValuePair<string, string>("EnergyDecrementWeight", "Medium");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent));   
+
+            antecedents = new Dictionary<string, string>();
+            antecedents.Add("Age", "Old");
+            consequent = new KeyValuePair<string, string>("EnergyDecrementWeight", "Medium");
+            fuzzySystem.AddRule(new Rule(antecedents, consequent)); 
         }
     }
 
@@ -574,6 +695,7 @@ public class FuzzySchoolController : SchoolController
 
         // Calcular la direccion
         Vector3 obstacleAvoidanceDirection = GetObstacleAvoidanceDirection(i);
+        Vector3 hidingDirection = GetHidingLocationDirection(i);
         Vector3 predatorAvoidanceDirection = GetPredatorAvoidanceDirection(i);
         Vector3 preyFollowingDirection = GetPreyFollowingDirection(i);
         Vector3 centroidFollowingDirection = GetCentroidFollowingDirection(i);
@@ -581,15 +703,17 @@ public class FuzzySchoolController : SchoolController
         Vector3 knownRoute = GetKnownRoute(i);
         Vector3 swimmingDepthDirection = GetSwimmingDepthDirection(i);
 
-
         Vector3 preferedDirection = couzinDirection * couzinDirectionWeight * output_variables["CouzinDirectionWeight"]
                                   + knownRoute * fishList[i].omega
                                   + obstacleAvoidanceDirection * obstacleAvoidanceDirectionWeight
+                                  //+ hidingDirection * hidingDirectionWeight * output_variables["HidingDirectionWeight"]
                                   + predatorAvoidanceDirection * predatorAvoidanceDirectionWeight * output_variables["PredatorAvoidanceDirectionWeight"]
                                   + preyFollowingDirection * preyFollowingDirectionWeight * output_variables["PreyFollowingDirectionWeight"]
                                   + centroidFollowingDirection * centroidFollowingDirectionWeight * output_variables["CentroidFollowingDirectionWeight"]
                                   + swimmingDepthDirection * swimmingDepthDirectionWeight;
 
+        fishList[i].individualEnergyIncrement = energyIncrement * output_variables["EnergyIncrementWeight"];
+        fishList[i].individualEnergyDecrement = energyDecrement * output_variables["EnergyDecrementWeight"];
         if (preferedDirection == Vector3.zero)
         {
             preferedDirection = fishList[i].transform.forward;
@@ -641,30 +765,40 @@ public class FuzzySchoolController : SchoolController
             }
         }
 
-        // Esta funcion se manda a llamar a si misma cada delta_t segundos
+        //These things are used to gather information for testing
         Dictionary<string, Dictionary<string, int>> countSets = new Dictionary<string, Dictionary<string, int>>();
+        
+        //Keeps count the amount of fish that are of a specific age
         countSets.Add("age", new Dictionary<string,int>(){
                                                         {"Fry",0},
                                                         {"Young",0},
                                                         {"Adult",0},
                                                         {"Old",0}
                                                         });
+        
+        //Keeps count of the amount of fish that fit into the different categories of energy
         countSets.Add("energy", new Dictionary<string,int>(){
                                                         {"Low",0},
                                                         {"Medium",0},
                                                         {"High",0}
                                                             });
+
+        //Keeps count of the amount of fish that fit into the different categories of swimming Depth
         countSets.Add("swimmingDepth", new Dictionary<string,int>(){
                                                         {"Low",0},
                                                         {"Medium",0},
                                                         {"High",0},
                                                         {"VeryHigh",0}
                                                             });
+        
+        //Keeps count of the amount of fish that fit into the different categories of weight that tells them to stick close to the school or not
         countSets.Add("centroidFollowingDirectionWeight", new Dictionary<string,int>(){
                                                         {"Low",0},
                                                         {"Medium",0},
                                                         {"High",0}
                                                             });
+
+        //Keeps count of the amount of fish that fit into the different categories of weight that tells them to follow the group or not
         countSets.Add("couzinDirectionWeight", new Dictionary<string,int>(){
                                                         {"Low",0},
                                                         {"Medium",0},
@@ -679,33 +813,38 @@ public class FuzzySchoolController : SchoolController
             FishInformation info = GetFishInformation(i);
             fishList[i].SetInformation(info);
 
-            //Save information for testing
-            totalSpeed = totalSpeed + info.Speed;
-            totalCentroidDistance = totalCentroidDistance + Vector3.Distance(centroid, fishList[i].transform.position);
-            
-            countSets["swimmingDepth"][fuzzySystem.GetDependientFuzzyVariable("SwimmingDepth").FuzzificationClosestSet(output_variables["SwimmingDepth"])] += 1;
-            countSets["couzinDirectionWeight"][fuzzySystem.GetDependientFuzzyVariable("CouzinDirectionWeight").FuzzificationClosestSet(output_variables["CouzinDirectionWeight"])] += 1;
-            countSets["centroidFollowingDirectionWeight"][fuzzySystem.GetDependientFuzzyVariable("CentroidFollowingDirectionWeight").FuzzificationClosestSet(output_variables["CentroidFollowingDirectionWeight"])] += 1;
-            countSets["age"][fuzzySystem.GetIndependientFuzzyVariable("Age").FuzzificationClosestSet(variables["Age"])] += 1;
-            countSets["energy"][fuzzySystem.GetIndependientFuzzyVariable("Energy").FuzzificationClosestSet(variables["Energy"])] += 1;
+            if (isTesting){
+                //Save information for testing
+                totalSpeed = totalSpeed + info.Speed;
+                totalCentroidDistance = totalCentroidDistance + Vector3.Distance(centroid, fishList[i].transform.position);
+                
+                countSets["swimmingDepth"][fuzzySystem.GetDependientFuzzyVariable("SwimmingDepth").FuzzificationClosestSet(output_variables["SwimmingDepth"])] += 1;
+                countSets["couzinDirectionWeight"][fuzzySystem.GetDependientFuzzyVariable("CouzinDirectionWeight").FuzzificationClosestSet(output_variables["CouzinDirectionWeight"])] += 1;
+                countSets["centroidFollowingDirectionWeight"][fuzzySystem.GetDependientFuzzyVariable("CentroidFollowingDirectionWeight").FuzzificationClosestSet(output_variables["CentroidFollowingDirectionWeight"])] += 1;
+                countSets["age"][fuzzySystem.GetIndependientFuzzyVariable("Age").FuzzificationClosestSet(variables["Age"])] += 1;
+                countSets["energy"][fuzzySystem.GetIndependientFuzzyVariable("Energy").FuzzificationClosestSet(variables["Energy"])] += 1;
+            }
         }
 
-        float averageSpeed = totalSpeed/fishList.Count;
-        float averageCentroidDistance = totalCentroidDistance/fishList.Count;
-        //m_textMeshPro.rectTransform.anchoredPosition3D = centroid;
-        //Debug.Log(centroid);
-        //Debug.Log(averageSpeed);
-        //Debug.Log(gameObject.transform.position);
-        infoTool.addAvgSpeed(averageSpeed);
-        infoTool.addAvgCentroidDistance(averageCentroidDistance);
-        infoTool.addSwimmingDepthTypeCount(countSets["swimmingDepth"]);
-        infoTool.addCentroidFollowingDirectionWeightTypeCount(countSets["centroidFollowingDirectionWeight"]);
-        infoTool.addCouzinDirectionWeightTypeCount(countSets["couzinDirectionWeight"]);
-        infoTool.addAgeTypeCount(countSets["age"]);
-        infoTool.addEnergyTypeCount(countSets["energy"]);
-        m_textMeshPro.transform.position = centroid;
-        m_textMeshPro.text = string.Format("{0:N2}", averageSpeed);
+        if (isTesting){
+            float averageSpeed = totalSpeed/fishList.Count;
+            float averageCentroidDistance = totalCentroidDistance/fishList.Count;
+            //m_textMeshPro.rectTransform.anchoredPosition3D = centroid;
+            //Debug.Log(centroid);
+            //Debug.Log(averageSpeed);
+            //Debug.Log(gameObject.transform.position);
+            infoTool.addAvgSpeed(averageSpeed);
+            infoTool.addAvgCentroidDistance(averageCentroidDistance);
+            infoTool.addSwimmingDepthTypeCount(countSets["swimmingDepth"]);
+            infoTool.addCentroidFollowingDirectionWeightTypeCount(countSets["centroidFollowingDirectionWeight"]);
+            infoTool.addCouzinDirectionWeightTypeCount(countSets["couzinDirectionWeight"]);
+            infoTool.addAgeTypeCount(countSets["age"]);
+            infoTool.addEnergyTypeCount(countSets["energy"]);
+            m_textMeshPro.transform.position = centroid;
+            m_textMeshPro.text = string.Format("{0:N2}", averageSpeed);
+        }
         // Vuelve actualizar la direccion dentro de delta_t segundos
+        //Esta funcion se llama otra vez en delta_t segundos
         Invoke("UpdateFishInformation", delta_t);
     }
 }

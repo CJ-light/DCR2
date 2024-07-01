@@ -91,7 +91,7 @@ namespace Info{
             minSpeed = paramMinSpeed;
             maxSpeed = paramMaxSpeed;
             SchoolID = paramSchoolID;
-            testName = "Test2_AgeAndEnergy_Set_Random_Fuzzy";
+            testName = "Testing";
             gameDuration = 120;
             proportion = paramLifeExpectation/gameDuration;
             enableRegeneration = false;
