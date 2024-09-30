@@ -67,3 +67,7 @@ Assets/NetCodeGenerated*
 .idea/
 .DS_Store
 RiderScriptEditorPersistedState.asset
+
+#Profile analizer
+./ProfileAnalyzer/
+../Ambientation/ProfileAnalyzer/

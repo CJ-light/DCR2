@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1501737747371270, guid: 009834b439a0e455b843299085c2fbff, type: 3}
   InitialRadius: 15
-  Count: 25000
+  Count: 10000
 --- !u!4 &614494515
 Transform:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &675244198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1501737747371270, guid: 79a37646f9bdc5f419ac181f3d342769, type: 3}
   InitialRadius: 15
-  Count: 25000
+  Count: 3
 --- !u!4 &675244200
 Transform:
   m_ObjectHideFlags: 0

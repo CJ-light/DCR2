@@ -148,7 +148,6 @@ public class FishController : MonoBehaviour
             // Deteccion de localizaciones en donde el pez puede esconderse
             foreach (GameObject detector in obstacleDetector)
             {
-
                 RaycastHit hit;
                 if (Physics.Raycast(detector.transform.position, detector.transform.forward, out hit, schoolController.obstacleSearchingRange, schoolController.combinedLayer))
                 {

@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 485639952}
   m_Layer: 7
   m_Name: Plane (3)
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 570393578}
   m_Layer: 7
   m_Name: Plane (5)
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 608387611}
   m_Layer: 7
   m_Name: Plane (4)
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 613471084}
   m_Layer: 7
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1001,7 +1001,7 @@ GameObject:
   - component: {fileID: 661906729}
   m_Layer: 7
   m_Name: Plane (1)
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2026,7 +2026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: spawnRange
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: frameManager
@@ -2034,7 +2034,7 @@ PrefabInstance:
       objectReference: {fileID: 613179085}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: maxPopulation
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: ageToReachMaxSize
@@ -2042,11 +2042,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: initialPopulation
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: hidingLayer.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
+      propertyPath: preferedSwimmingDepth
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
+      propertyPath: preferedSwimmingDepthRange
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657614474770936790, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
+      propertyPath: obstacleAvoidanceDirectionWeight
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2657614474770936791, guid: a9e0296db48d4574b8b759d755637f54, type: 3}
       propertyPath: m_RootOrder
@@ -2710,7 +2722,7 @@ GameObject:
   - component: {fileID: 1971953673}
   m_Layer: 7
   m_Name: Plane (2)
-  m_TagString: Untagged
+  m_TagString: terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

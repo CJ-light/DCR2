@@ -6,6 +6,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine.Profiling;
+using UnityEngine;
 
 namespace Boids
 {
@@ -22,6 +23,7 @@ namespace Boids
             //  Or it might take longer to do than doing it after the for loop is done.
             //Allocator.Temp: Memory is allocated to this value for a temporary amount of time, around 4 frames of time.
 
+            Debug.Log("OnUpdate");
             var localToWorldLookup = SystemAPI.GetComponentLookup<LocalToWorld>();
             var ecb = new EntityCommandBuffer(Allocator.Temp);
             var world = state.World.Unmanaged;
@@ -34,6 +36,16 @@ namespace Boids
                      SystemAPI.Query<RefRO<BoidSchool>, RefRO<LocalToWorld>>()
                          .WithEntityAccess())
             {
+                //214 Spawns real fish
+                //258 Spawns ghost fish
+                if (entity.Index == 214)
+                {
+                    //Debug.Log("Getting out of loop");
+                    //ecb.DestroyEntity(entity);
+                    return;
+                }
+                Debug.Log("In for loop");
+                                Debug.LogFormat("School: {0}, SchoolLocalToWorld {1}, Entity: {2}", boidSchool.ValueRO, boidSchoolLocalToWorld.ValueRO, entity);
 
                 //CreateNativeArray<T>(NativeArray<T> array, AllocatorManager.AllocatorHandle allocator)
                 //  This creates a copy of the other native array with the allocator
@@ -107,7 +119,7 @@ namespace Boids
             // localToWorld :: Define the position and direction into the world coordinates
             // Define the random position and direction of each fish spawned beforehand. 
             var entity = Entities[i];
-            var random = new Random(((uint)(entity.Index + i + 1) * 0x9F6ABC1));
+            var random = new Unity.Mathematics.Random(((uint)(entity.Index + i + 1) * 0x9F6ABC1));
             var dir = math.normalizesafe(random.NextFloat3() - new float3(0.5f, 0.5f, 0.5f));
             var pos = Center + (dir * Radius);
             var localToWorld = new LocalToWorld

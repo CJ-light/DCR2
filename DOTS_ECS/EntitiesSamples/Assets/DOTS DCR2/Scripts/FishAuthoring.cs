@@ -9,28 +9,33 @@ namespace DCR2
     {
         [Header("School caracteristics")]
         //For now, get the schoolID manually
-        //TODO :: Make a unique ID for each school
-        public int schoolID = 1;
+        //TODO :: Make a unique ID for each school when its created
+        public int schoolID;
+
+        [Header("Species Characteristics")]
+        public float normalSpeed;
+        public float acceleration;
+        public float rotationSpeed;
 
         [Header("Direction Weights")]
-        public float couzinDirectionWeight = 1f;
-        public float centroidFollowingDirectionWeight = 2f;
+        public float couzinDirectionWeight;
+        public float centroidFollowingDirectionWeight;
 
         [Header("Cohesion, seperation and alignment variables")]
-        public int minCentroidDistance = 10;
-        public int maxCentroidDistance = 30;
-        public float alpha = 2f;
-        public float rho = 6f;
-        public float speed = 5f;
+        public int minCentroidDistance;
+        public int maxCentroidDistance;
+        public float alpha;
+        public float rho;
 
         class Baker : Baker<FishAuthoring>
         {
             // Function to bake the entity that contains the BoidSchool component
+            // authoring :: This is the value that has the inputs that the user gave 
             public override void Bake(FishAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Renderable);
                 
-                //Adds te schoolSpawn component to the entity that we just made
+                //Adds the SemiStaticSchool component to this entity
                 AddSharedComponent(entity, new SemiStaticSchool
                 {
                     schoolID = authoring.schoolID,
@@ -40,26 +45,31 @@ namespace DCR2
                     maxCentroidDistance = authoring.maxCentroidDistance,
                     alpha = authoring.alpha,
                     rho = authoring.rho,
+                    acceleration = authoring.acceleration,
+                    normalSpeed = authoring.normalSpeed,
+                    rotationSpeed = authoring.rotationSpeed,
                 });
 
-                //centroid :: put the position of the spawner as the current centroid
+                //Adds the DynamicSchool component to this entity
                 AddComponent(entity, new DynamicSchool
                 {
                     centroid = authoring.transform.position
                 });
 
+                //Adds the Fish component to this entity
                 AddComponent(entity, new Fish{
-                    speed = authoring.speed
+                    currentSpeed = authoring.normalSpeed
                 });
             }
         }
     }
 
     
-    //Define the fishAuthoring components
+    //Define each of the components that apply to the fish
     //semiStaticSchool :: Store class caracteristics that don't change often during run time
     //  The reason for that is because for ISharedComponentData its not advised to put values that will change often
     //  that is because it will affect the location where each fish of that class is going to be stored, which will take time processing, and if its done ofthen then that time will stack up
+    //
     [Serializable]
     [WriteGroup(typeof(LocalToWorld))]
     public struct SemiStaticSchool : ISharedComponentData
@@ -71,18 +81,24 @@ namespace DCR2
         public int maxCentroidDistance;
         public float alpha;
         public float rho;
+        public float acceleration;
+        public float normalSpeed;
+        public float rotationSpeed;
     }
 
     // Component that stores dynamic school data, things that are going to be changed constantly
+    // IComponentData vr. ISharedComponentData :: As opposed to ISharedComponents, IComponents are designed to be used for an individual entity, and is good to use for vraibles that change often
+    //  The centroid is something that is shared with the whole school but it changes constantly, that is why its an IComponents instead of  a ISharedComponent 
     public struct DynamicSchool : IComponentData
     {
         public Vector3 centroid;
 
     }
 
+    //Stores data that each fish uses and changes individually
     public struct Fish : IComponentData
     {
-        public float speed;
+        public float currentSpeed;
         public bool goToCentroid;
     }
 }

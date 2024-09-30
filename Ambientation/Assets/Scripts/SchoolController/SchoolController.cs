@@ -481,15 +481,20 @@ public class SchoolController : MonoBehaviour
 
         if (centroidFollowingDirectionWeight > 0)
         {
+            //If too far away then come back
             if ((centroid - fishList[i].transform.position).magnitude > maxCentroidDistance)
             {
                 fishList[i].gotoCentroid = true;
                 centroidFollowingDirection = (centroid - fishList[i].transform.position).normalized;
             }
+            
+            //If going towards center and still hasn't reached minimum range then keep giong towards the centroid
             else if (fishList[i].gotoCentroid && (centroid - fishList[i].transform.position).magnitude > minCentroidDistance)
             {
                 centroidFollowingDirection = (centroid - fishList[i].transform.position).normalized;
             }
+            
+            //If already in the minimum range then stop focusing on oging towards it.
             else
             {
                 fishList[i].gotoCentroid = false;

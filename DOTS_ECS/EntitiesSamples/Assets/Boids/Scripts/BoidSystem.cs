@@ -5,6 +5,7 @@ using Unity.Burst;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 // Mike's GDC Talk on 'A Data Oriented Approach to Using Component Systems'
 // is a great reference for dissecting the Boids sample code:
@@ -442,6 +443,7 @@ namespace Boids
                 var obstacleSteering                  = currentPosition - nearestObstaclePosition;
                 var avoidObstacleHeading              = (nearestObstaclePosition + math.normalizesafe(obstacleSteering)
                     * CurrentBoidVariant.ObstacleAversionDistance) - currentPosition;
+                
 
                 // the updated heading direction. If not needing to be avoidant (ie obstacle is not within
                 // predefined radius) then go with the usual defined heading that uses the amalgamation of

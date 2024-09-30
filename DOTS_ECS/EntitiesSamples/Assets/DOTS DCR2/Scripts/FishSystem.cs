@@ -5,6 +5,10 @@ using Unity.Burst;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
+
+
+//Note :: You can use Debug.Log() if you disable the job's [BurstCompile]
 
 //1. Replace Vector3 with float3
 //  float3 is what is used for the LocalToWorld component, so if I were to use Vector3 then I'd have to constantly typecast it to Vector3 and back into LocalToWorld
@@ -52,6 +56,9 @@ namespace DCR2
                 int maxCentroidDistance = fishSettings.maxCentroidDistance;
                 float alpha = fishSettings.alpha;
                 float rho = fishSettings.rho;
+                float normalSpeed = fishSettings.normalSpeed;
+                float acceleration = fishSettings.acceleration;
+                float rotationSpeed = fishSettings.rotationSpeed;
 
 
                 //Create an array that contains each entity in this school
@@ -64,15 +71,23 @@ namespace DCR2
                 //Create arrays where you're going to store the results from jobs
                 var couzinDirections = CollectionHelper.CreateNativeArray<CouzinValues, RewindableAllocator>(fishCount, ref world.UpdateAllocator);
                 var centroidFollowingDirections = CollectionHelper.CreateNativeArray<float3, RewindableAllocator>(fishCount, ref world.UpdateAllocator);
-                float3 newCentroid = float3.zero;
+                var newCentroid = CollectionHelper.CreateNativeArray<float3, RewindableAllocator>(1, ref world.UpdateAllocator);
+                newCentroid[0] = float3.zero;
+                //float3 newCentroid = float3.zero;
 
                 //Is it alright to name the variables same?
                 var calculateCentroidJob = new CalculateCentroidJob
                 {
                     newCentroid = newCentroid,
                 };
-                newCentroid = newCentroid/(float)fishCount;
                 var calculateCentroidJobHandle = calculateCentroidJob.Schedule(fishQuery, fishChunkBaseIndexJobHandle);
+
+                var calculateCentroidMeanJob = new CalculateCentroidMeanJob
+                {
+                    newCentroid = newCentroid,
+                    fishCount = fishCount,
+                };
+                var calculateCentroidMeanJobHandle = calculateCentroidMeanJob.Schedule(calculateCentroidJobHandle);
 
                 var getCentroidFollowingDirectionJob = new GetCentroidFollowingDirectionJob
                 {
@@ -97,7 +112,7 @@ namespace DCR2
                 };
                 var getCouzinDirectionJobHandle = getCouzinDirectionJob.ScheduleParallel(fishQuery, fishChunkBaseIndexJobHandle);
 
-                var centroidsBarrierJobHandle = JobHandle.CombineDependencies(calculateCentroidJobHandle, getCentroidFollowingDirectionJobHandle);
+                var centroidsBarrierJobHandle = JobHandle.CombineDependencies(calculateCentroidMeanJobHandle, getCentroidFollowingDirectionJobHandle);
                 var centroidCouzinBarrierJobHandle = JobHandle.CombineDependencies(centroidsBarrierJobHandle,getCouzinDirectionJobHandle);
                 
                 
@@ -109,6 +124,7 @@ namespace DCR2
                     couzinDirections = couzinDirections,
                     centroidFollowingDirections = centroidFollowingDirections,
                     deltaTime = dt,
+                    rotationSpeed = rotationSpeed,
                 };
                 
                 var assignFinalDirectionJobHandle = assignFinalDirectionJob.ScheduleParallel(fishQuery, centroidCouzinBarrierJobHandle);
@@ -133,6 +149,7 @@ namespace DCR2
                 //TODO :: define the updateCentroid on each fish Job
                     //Update this new centroid on each fish and calcuate the new direction for them
             }
+            state.Dependency.Complete();
             uniqueFishComponents.Dispose();
         }
         //TODO :: define calcuate distance from centroid job
@@ -170,9 +187,20 @@ namespace DCR2
                     }
                     else
                     {
-                        goToCentroid = false;
+                        fish.goToCentroid = false;
                     }
                 }
+                
+                /*
+                if (entityIndexInQuery == 0)
+                {
+                        Debug.LogFormat("Fish 1 -> goToCentroid:{0}, Position: {1}, CentroidFollowingDirection {2}", 
+                        fish.goToCentroid,
+                        position,
+                        centroidFollowingDirection);
+                }
+                */
+
                 centroidFollowingDirections[entityIndexInQuery] = centroidFollowingDirection;
             }      
         }
@@ -193,38 +221,93 @@ namespace DCR2
             void Execute([ChunkIndexInQuery] int chunkIndexInQuery, [EntityIndexInChunk] int entityIndexInChunk, in LocalToWorld localToWorld)
             {
                 int curFishIndex = chunkBaseEntityIndices[chunkIndexInQuery] + entityIndexInChunk;
+                int seperationCount = 0;
+                int allignmentCount = 0;
                 float3 position = localToWorld.Position;
                 float3 distance;
                 float3 v = float3.zero;
                 float3 seperation = float3.zero;
                 float3 allignment = float3.zero;
+
+                /*if (curFishIndex == 0)
+                    {
+                        Debug.LogFormat("Fish 1 -> Position: {0}", 
+                        fishPositions[fishEntities[0]].Position);
+                    }
+                else if (curFishIndex == 1)
+                {
+                        Debug.LogFormat("Fish 2 -> Position: {0}", 
+                        fishPositions[fishEntities[1]].Position);
+                }*/
                 
-                seperation = couzinDirections[curFishIndex].Seperation;
-                allignment = couzinDirections[curFishIndex].Allignment;
+                //seperation = couzinDirections[curFishIndex].Seperation;
+                //allignment = couzinDirections[curFishIndex].Allignment;
 
                 if (couzinDirectionWeight > 0)
                 {
                     for (int i = 0; i < fishCount; i++)
                     {
+                        //Debug.LogFormat("Amount of fish it checks in Couzin Function: {0}", fishCount);
                         if (i != curFishIndex)
                         {
-                            distance = fishPositions[fishEntities[i]].Position - position;
-                            if (math.length(distance) < rho)
+                            //Debug.LogFormat("currentFish: {0}, iteration: {1}", curFishIndex, i);
+
+                            distance = fishPositions[fishEntities[i]].Position - fishPositions[fishEntities[curFishIndex]].Position;
+                            if (math.length(distance) < alpha)
                             {
                                 seperation += distance/math.length(distance);  
+                                seperationCount += 1;
                             }
-                            else if (math.length(distance) < alpha)
+                            else if (math.length(distance) < rho)
                             {
                                 allignment += distance/math.length(distance);
                                 v += fishPositions[fishEntities[i]].Forward/math.length(fishPositions[fishEntities[i]].Forward);
+                                allignmentCount += 1;
                             }
                         }
                     }
+                    
+                    /*if (curFishIndex == 0)
+                    {
+                        Debug.LogFormat("Fish 1 -> Position: {0},Seperation: {1}, Allignment: {2}", 
+                        fishPositions[fishEntities[0]].Position,
+                        seperation,
+                        allignment);
+                    }
+                    else if (curFishIndex == 1)
+                    {
+                        Debug.LogFormat("Fish 2 -> Position: {0},Seperation: {1}, Allignment: {2}", 
+                        fishPositions[fishEntities[1]].Position,
+                        seperation,
+                        allignment);
+                    }*/
+
                     seperation = -seperation;
                     allignment += v;
 
-                    seperation /= math.length(seperation); 
-                    allignment /= math.length(allignment);
+                    if (seperationCount > 0)
+                    {
+                       seperation /= math.length(seperation);  
+                    }
+                    if (allignmentCount > 0)
+                    {
+                        allignment /= math.length(allignment);
+                    }
+
+                    /*
+                    if (curFishIndex == 0)
+                    {
+                        Debug.LogFormat("Fish 1 -> Seperation: {0}, Allignment: {1}", 
+                        seperation,
+                        allignment);
+                    }
+                    else if (curFishIndex == 1)
+                    {
+                        Debug.LogFormat("Fish 2 -> Seperation: {0}, Allignment: {1}", 
+                        seperation,
+                        allignment);
+                    }
+                    */
 
                     couzinDirections[curFishIndex] = new CouzinValues
                     {
@@ -249,24 +332,74 @@ namespace DCR2
             [ReadOnly] public NativeArray<float3> centroidFollowingDirections;
 
             [ReadOnly] public float deltaTime;
+            [ReadOnly] public float rotationSpeed;
+            
 
-            void Execute([ChunkIndexInQuery] int chunkIndexInQuery, [EntityIndexInChunk] int entityIndexInChunk, ref LocalToWorld localToWorld)
+            void Execute([ChunkIndexInQuery] int chunkIndexInQuery, [EntityIndexInChunk] int entityIndexInChunk,ref Fish fish, ref LocalToWorld localToWorld)
             {
                 int curFishIndex = chunkBaseEntityIndices[chunkIndexInQuery] + entityIndexInChunk;
+                float3 curPosition = localToWorld.Position;
+                float3 forward = localToWorld.Forward;
                 float3 couzinDirection = float3.zero;
                 float3 preferredDirection;
 
-                if (couzinDirections[curFishIndex].Seperation.Equals(float3.zero))
+                
+                if (couzinDirections[curFishIndex].Seperation.Equals(float3.zero) != true)
                 {
                     couzinDirection = couzinDirections[curFishIndex].Seperation;
                 }
-                else if (couzinDirections[curFishIndex].Allignment.Equals(float3.zero))
+                else if (couzinDirections[curFishIndex].Allignment.Equals(float3.zero) != true)
                 {
                     couzinDirection = couzinDirections[curFishIndex].Allignment;
                 }
+                
 
+                //couzinDirection = couzinDirections[curFishIndex].Seperation;
+
+                
                 preferredDirection = couzinDirection * couzinDirectionWeight
                                             + centroidFollowingDirections[curFishIndex] * centroidFollowingDirectionWeight;
+                
+                //preferredDirection = couzinDirection * couzinDirectionWeight;
+                /*if (curFishIndex == 0)
+                {
+                    Debug.LogFormat("Fish 1 -> Seperation: {0}, Allignment: {1}, Final: {2}, CurDirection: {3}", 
+                    couzinDirections[curFishIndex].Seperation,
+                    couzinDirections[curFishIndex].Allignment,
+                    preferredDirection,
+                    localToWorld.Forward);
+                }
+                else if (curFishIndex == 1)
+                {
+                    Debug.LogFormat("Fish 2 -> Seperation: {0}, Allignment: {1}, Final: {2}, CurDirection: {3}", 
+                    couzinDirections[curFishIndex].Seperation,
+                    couzinDirections[curFishIndex].Allignment,
+                    preferredDirection,
+                    localToWorld.Forward);
+                }*/
+                /*if (curFishIndex == 0)
+                {
+                    Debug.LogFormat("Fish 1 -> Seperation: {0}, Allignment: {1}, CentroidFollowing: {2}, Final: {3}", 
+                    couzinDirections[curFishIndex].Seperation,
+                    couzinDirections[curFishIndex].Allignment,
+                    centroidFollowingDirections[curFishIndex],
+                    preferredDirection);
+                }
+                else if (curFishIndex == 1)
+                {
+                    Debug.LogFormat("Fish 2 -> Seperation: {0}, Allignment: {1}, CentroidFollowing: {2}, Final: {3}", 
+                    couzinDirections[curFishIndex].Seperation,
+                    couzinDirections[curFishIndex].Allignment,
+                    centroidFollowingDirections[curFishIndex],
+                    preferredDirection);
+                }*/
+                
+                //preferredDirection = centroidFollowingDirections[curFishIndex] * centroidFollowingDirectionWeight;
+                //preferredDirection = couzinDirection * couzinDirectionWeight; 
+                
+                //preferredDirection = couzinDirection * couzinDirectionWeight;
+                
+                //preferredDirection = centroidFollowingDirections[curFishIndex] * centroidFollowingDirectionWeight;
                 
                 if (preferredDirection.Equals(float3.zero))
                 {
@@ -276,12 +409,35 @@ namespace DCR2
                 {
                     preferredDirection /= math.length(preferredDirection);
                 }
+                
+                
+                //preferredDirection /= math.length(preferredDirection);
+                /*
+                // Actualizar la rapidez
+                currentSpeed = Mathf.Lerp(currentSpeed, speed, schoolController.acceleration * Time.deltaTime);
+
+                // Actualizar la rotacion
+                Vector3 delayDirection = Vector3.Lerp(transform.forward, direction, schoolController.rotationSpeed * Time.deltaTime);
+                transform.LookAt(transform.position + delayDirection);
+
+                // Calcula la nueva posicion
+                transform.position += currentSpeed * Time.deltaTime * transform.forward;
+                */
+                
+                //This doesn't count because the speed variable isnt being calculated because there isn't anything that affects it yet (predators, obstacles, etc...)
+                //fish.currentSpeed = Mathf.Lerp(fish.currentSpeed, speed, 1f * deltaTime);
+
+                //float3 delayDirection = math.lerp(forward, preferredDirection,rotationSpeed * deltaTime);
+                float3 delayDirection = math.lerp(forward, preferredDirection,rotationSpeed * deltaTime);
+
                 localToWorld = new LocalToWorld
                 {
                     Value = float4x4.TRS(
                         // TODO: precalc speed*dt
-                        new float3(preferredDirection * deltaTime),
-                        quaternion.LookRotationSafe(preferredDirection, math.up()),
+                        new float3(curPosition += new float3(fish.currentSpeed) * forward),
+                        //new float3(curPosition += new float3(0.1) * forward),
+                        //new float3(curPosition),
+                        quaternion.LookRotationSafe(math.normalizesafe(forward + (delayDirection - forward)), math.up()),
                         new float3(1.0f, 1.0f, 1.0f))
                 };
             }
@@ -291,20 +447,38 @@ namespace DCR2
         [BurstCompile]
         partial struct CalculateCentroidJob : IJobEntity
         {
-            public float3 newCentroid;
+            public NativeArray<float3> newCentroid;
+
             void Execute(in LocalToWorld localToWorld)
             {
-                newCentroid = newCentroid + localToWorld.Position;
+                newCentroid[0] = newCentroid[0] + localToWorld.Position;
+                //Debug.LogFormat("newCentroid: {0}", newCentroid[0]);
+            }
+        }
+
+        [BurstCompile]
+        partial struct CalculateCentroidMeanJob : IJobEntity
+        {
+            public NativeArray<float3> newCentroid;
+            [ReadOnly] public int fishCount;
+
+            void Execute ()
+            {
+                //Debug.Log("newCentroid: " + newCentroid[0]);
+                //Debug.LogFormat("newCentroid: {0}, fishCount: {1}", newCentroid[0], fishCount);
+                newCentroid[0] = newCentroid[0]/(float) fishCount;
+                //Debug.LogFormat("newCentroid: {0}", newCentroid[0]);
             }
         }
         //TODO :: Put new Centroid Job
         [BurstCompile]
         partial struct AssignCentroidJob : IJobEntity
         {
-            [ReadOnly] public float3 newCentroid;
+            [ReadOnly] public NativeArray<float3> newCentroid;
+
             void Execute(ref DynamicSchool dynamicSchool)
             {
-                dynamicSchool.centroid = newCentroid;
+                dynamicSchool.centroid = newCentroid[0];
             }
         }
 

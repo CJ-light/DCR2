@@ -1024,7 +1024,7 @@ namespace FuzzyLogic
         }
         public override bool IndicatorFunction(float value)
         {
-            if (value < indicatorMult * stdDev - centroid || indicatorMult * stdDev + centroid < value) {
+            if (value < centroid - indicatorMult * stdDev || centroid + indicatorMult * stdDev < value) {
                 return false;
             }
             else{
@@ -1034,7 +1034,7 @@ namespace FuzzyLogic
 
         public override float MembershipFunction(float value)
         {
-            if (value < indicatorMult * stdDev - centroid || indicatorMult * stdDev + centroid < value) {
+            if (value < centroid - indicatorMult * stdDev || centroid + indicatorMult * stdDev < value) {
                 return 0;
             }
             else{
